@@ -5,12 +5,16 @@
 
 | 項目 | 値 |
 |---|---|
-| 最終更新 | 2026-05-02 |
+| 最終更新 | 2026-05-03 |
 | 次回レビュー | 2026-06-02（月次） |
 
 ---
 
 ## ⚠️ 既知の Gap
+
+### ~~G8. まあみ claude_design フロー未定義~~ ✅ 解消（2026-05-03）
+- **解消内容：** `docs/harness/DESIGN_FLOW.md` を新規作成。Gate 1（Coherence）→ Gate 2（Compatibility）→ Gate 3（Fidelity）の3段階ゲートを定義。`docs/input/setup/claude_design_prompt_template.md` でclaudie_designへのコンテキストインジェクションを標準化。
+- **残作業：** `ONBOARDING.md` のまあみセクションに `DESIGN_FLOW.md` へのリンクを追加する。
 
 ### G1. テストコマンドが未整備
 - **状態：** ❗ 未解消
