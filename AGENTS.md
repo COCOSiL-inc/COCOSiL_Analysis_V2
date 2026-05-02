@@ -43,3 +43,41 @@
 - **禁止語:** 占い、鑑定、運勢、占い師、当たる、霊感、霊視
 - **代替表現:** 性格分析、パーソナリティ診断、統合レポート、傾向、特徴
 - **例外:** コード内の変数名・DBカラム名では正式名称（動物占い、六星占術）の使用可。
+
+## 7. Protected Areas（AIエージェント操作境界）
+
+リスクレベル **R2+**（Supabase + Clerk + AI診断データ・課金なし）。判定根拠は `docs/harness/HARNESS_DECISIONS.md` 参照。
+詳細は `cocosil-domain` skill / `cocosil-work` command と整合。
+
+### Layer 1：インフラ層（hookで自動ブロック・人間が手動でのみ実行）
+
+`.claude/hooks/prevent-destructive-command.js` が以下のBashコマンドを実行時にブロックする：
+- `supabase db reset` / `supabase db push` / `supabase migration repair`
+- SQL: `DROP TABLE` / `TRUNCATE` / RLS無効化 / `CREATE POLICY ... FOR ALL`
+- `.env` / `.env.local` / `.env.production` / `supabase/.env` の `cat`等読み取り
+- `git push --force` / `git reset --hard`
+
+ファイルパスとしての保護対象：
+- `supabase/migrations/**`、`supabase/seed.sql`
+- `.env*` すべて（`.env.example` 含む）
+- `proxy.ts` 内の `clerkMiddleware` 設定
+- `lib/clerk/**`（将来予定地）
+
+### Layer 2：コンテンツ層（変更前に意味設計担当 = えんまさ承認必須）
+
+- `lib/prompts/**`（将来予定地） — AIプロンプトテンプレート（チャット3フェーズ・統合レポート・シェアカード）
+- `lib/data/**`（将来予定地） — 4体系ナレッジ（MBTI / 星座 / 動物性格診断 / 六星占術）
+- `lib/diagnostics/**` — 診断計算ロジック（実装はヒラメ、内容承認はえんまさ）
+
+### Layer 3：開発層（AI委任OK）
+
+- `app/(auth)/**` / `app/(public)/**` — ページ・レイアウト（まあみ担当）
+- `components/**` — UIコンポーネント（まあみ担当）
+- `app/api/**` — API ルート（ヒラメ担当・PR レビュー前提）
+
+### 検証コマンド
+
+- `pnpm typecheck` — `tsc --noEmit`（型整合性チェック）
+- `pnpm lint` — ESLint
+- `pnpm build` — Next.js build（GitHub Secrets登録後にCI追加予定）
+- テストコマンドは未整備（`docs/harness/HARNESS_HEALTH.md` の Gap として記録）

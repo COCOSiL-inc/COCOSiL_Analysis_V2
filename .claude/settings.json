@@ -10,6 +10,15 @@
             "command": "grep -qE '(sk-[a-zA-Z0-9]{20,}|eyJh[a-zA-Z0-9]{20,}|supabase_service_role|SUPABASE_SERVICE_ROLE)' \"$CLAUDE_FILE_PATH\" 2>/dev/null && echo 'BLOCK: Potential secret detected. Use environment variables instead.' && exit 1 || exit 0"
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/prevent-destructive-command.js"
+          }
+        ]
       }
     ]
   }
