@@ -12,8 +12,8 @@
 ### えんまさ @MasakiEndo44（意味設計レイヤー）のセッションで触れるファイル
 
 ```
-docs/output/prompts/**
-docs/output/data/**
+lib/prompts/**
+lib/data/**
 docs/language/**
 ```
 
