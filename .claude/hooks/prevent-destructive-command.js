@@ -50,8 +50,16 @@ function readStdin() {
     process.exit(0);
   }
 
+  // heredoc本体はコマンドではなくデータ。<<EOF 以降を除いてチェックする。
+  // また gh / curl / jq 等の外部APIコールはインフラ操作ではないのでスキップ。
+  const firstToken = command.trimStart().split(/\s+/)[0];
+  if (['gh', 'curl', 'jq'].includes(firstToken)) {
+    process.exit(0);
+  }
+  const commandHead = command.split(/<<['"]?EOF['"]?/i)[0];
+
   for (const { pattern, reason } of DESTRUCTIVE_PATTERNS) {
-    if (pattern.test(command)) {
+    if (pattern.test(commandHead)) {
       const output = {
         hookSpecificOutput: {
           hookEventName: 'PreToolUse',
