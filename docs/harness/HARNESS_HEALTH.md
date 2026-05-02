@@ -30,7 +30,7 @@
 - **残作業：** 動物占い60アニマルの著作権確認（要件定義 v1.3 §8 リスク表参照）。
 
 ### ~~G4. CODEOWNERS が単独運用~~ ✅ 解消（2026-05-02）
-- **解消内容：** ヒラメ（@shuichiro16）・まあみ（@maami415）の GitHub アカウント確定。`.github/CODEOWNERS` を v1.3 体制（3人レイヤー別分業）に更新。
+- **解消内容：** ヒラメ（@shuichiro-16）・まあみ（@maami415）の GitHub アカウント確定。`.github/CODEOWNERS` を v1.3 体制（3人レイヤー別分業）に更新。
 - **残作業：** 2人を GitHub リポジトリのコラボレーターとして招待する必要あり（GitHub Settings > Collaborators）。
 
 ### ~~G5. Clerk 環境変数未登録~~ ✅ 解消（2026-05-02）
