@@ -64,7 +64,7 @@ EARS 記法（When/While/If/Where/The system shall）を推奨するが、平文
 
 ## 書き出しフォーマット
 
-`docs/goals/<slug>.md` に以下のフォーマットで書き出す。
+`docs/output/goals/<slug>.md` に以下のフォーマットで書き出す。
 
 ```markdown
 ---

@@ -6,6 +6,23 @@
 
 # COCOSiL V2 エージェント向けガイドライン
 
+## 0. プロダクト哲学（なぜこのプロダクトを作るか）
+
+COCOSiLは「現代の無明（むみょう）」を解消するために存在する。現代人は職場・恋愛・家族との関係で繰り返し消耗するが、その根因は「自分も相手も、なぜそうなるかを知らない」ことにある。東洋哲学が2500年追求した「自己認識による解放」をAIで民主化する。
+
+### 非交渉のUXシーケンス
+
+```
+共感 → 安心 → 分析 → 行動
+```
+
+この順序は絶対に変えない。分析を先に出すと共感が壊れ、7日以内再訪率30%というPMF仮説が成立しなくなる。
+
+### PMF成功基準
+
+- 7日以内再訪率 **30%以上**
+- この基準を割るような実装判断（共感スキップ・診断結果の即時表示など）はえんまさの承認なしに行ってはならない。
+
 ## 1. API-First 設計 & 型安全な契約
 
 - **厳格ルール:** APIリクエスト/レスポンスの型定義をTypeScriptで完成させmainブランチにマージするまで、フロントエンド実装を開始してはならない。
@@ -18,7 +35,8 @@
 
 ## 3. 技術スタック & SOP
 
-- **スタック:** Next.js 16（App Router必須）, Supabase, Vercel, Tailwind CSS 4, TypeScript 5。
+- **スタック:** Next.js 16（App Router必須）, Supabase, Clerk（認証）, OpenAI（F3 共感AIチャット）, Gamma API（F2 統合レポート生成）, Vercel, Tailwind CSS 4, TypeScript 5。
+- **Gamma API注意：** F2（統合レポート）の主要依存。レート制限・コスト構造はSprint 3前に必ず確認すること。
 - **実行環境:** Unixベース環境（Mac または WSL2）のみ。
 - **環境変数:** `.env.local` で管理。リポジトリには絶対にコミットしない。アプリケーションコード内では `@/lib/env` 経由でのみ読む。`process.env` の直接参照禁止。
 
@@ -41,8 +59,10 @@
 ユーザーが目にする文言（UIコピー・AIプロンプト・エラーメッセージ・シェアカード）を書く前に、`language-design` スキルを必ず読み込む。
 
 - **禁止語:** 占い、鑑定、運勢、占い師、当たる、霊感、霊視
+  - 禁止の理由：COCOSiLはスピリチュアルサービスではなく「根拠のある性格分析プロダクト」。混入するとターゲット層（25-35歳若手社会人）の信頼を失い、SNS拡散もしない。
 - **代替表現:** 性格分析、パーソナリティ診断、統合レポート、傾向、特徴
 - **例外:** コード内の変数名・DBカラム名では正式名称（動物占い、六星占術）の使用可。
+- UIコピー・AIプロンプトを書く前に `language-design` スキルを必ず読み込む。
 
 ## 7. Protected Areas（AIエージェント操作境界）
 
@@ -81,3 +101,10 @@
 - `pnpm lint` — ESLint
 - `pnpm build` — Next.js build（GitHub Secrets登録後にCI追加予定）
 - テストコマンドは未整備（`docs/harness/HARNESS_HEALTH.md` の Gap として記録）
+
+## 8. スキル使い分けガイド
+
+- **単一機能・タスクのゴール確認** → `/goal-grill`（Vision / Outcome / Eval の 3 層・軽量。成果物: `docs/output/goals/<slug>.md`）
+- **全機能のシステム要件定義・PRD** → `/requirements-doc-creator`（Stage 1 → レビュー → Stage 2 の 2 段階・重厚）
+- **PR 作成時のサマリー** → `/pr-draft-summary`
+- **認証・DB migration・API route 変更時** → `/security-sensitive-change-review`
