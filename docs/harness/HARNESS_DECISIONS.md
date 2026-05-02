@@ -118,7 +118,61 @@ Layer 3 ── 開発層（壊れても Git revert で修復可能）
 
 ---
 
-## 6. 月次レビュー時の確認項目
+## 6. Bootstrapping Governance — Admin bypassの設計的位置づけ
+
+議論ログ `議論ログ_PRレビュー問題.md` の Turn 4〜5 に基づく判断。
+
+### 問題の構造（Self-Blocking Anti-Pattern）
+
+初期セットアップPR（setup/v2-init → main）において、以下の構造的問題が発生した：
+
+```
+.github/     @MasakiEndo44  ← えんまさだけ（CODEOWNERSに記載）
+  ↓
+えんまさがPR作成者 → 自分のPRを自分で承認できない（GitHubルール）
+  ↓
+まあみ・ヒラメはまだコラボレーター未招待 → 誰もマージできない
+```
+
+これは「審判が自分の試合を裁けない」問題であり、**Bootstrapping Paradox** と呼ぶ。
+
+### 採用した設計判断
+
+**Bootstrapping Governance の3原則：**
+
+① **Transparent Bypass（透明なバイパス）**
+Admin bypassは「こっそりルールを外す」のではなく、Ruleset Bypass Listに明示的に設定する。
+GitHubのAudit Logで追跡可能にすることで「緊急例外」を「設計上の正当な経路」に変える。
+
+② **Honest CODEOWNERS（現実に正直な所有者定義）**
+招待されていないメンバーをCODEOWNERSに記載しない。
+チームの現状を反映した設計を保ち、コラボレーター招待後に全員記載に更新する。
+
+③ **Bootstrap PR ≠ Feature PR（初期ガバナンスPRの別扱い）**
+ルール自体を作るPRと、ルールに従うPRは本質的に異なる。
+初期段階はAdmin権限者がBootstrap PRをbypassマージし、以降の全PRから正規フローを適用する。
+
+### 具体的な対処記録
+
+| フェーズ | アクション | 状態 |
+|---|---|---|
+| Bootstrap期（今） | Ruleset Bypass ListにえんまさをAdmin追加 | → 実施予定 |
+| Bootstrap期（今） | PR #2 を Admin bypass でマージ | → 実施予定 |
+| コラボレーター招待後 | @shuichiro16 / @maami415 を Collaborators に招待 | G4残作業 |
+| コラボレーター招待後 | CODEOWNERSの `.github/` 等を全員記載に更新 | G4残作業 |
+| 初の正規フロー | 更新PRをヒラメかまあみにレビューしてもらう | 未着手 |
+
+### スキップした選択肢とその理由
+
+| 選択肢 | 却下理由 |
+|---|---|
+| ヒラメ/まあみを先に招待→承認待ち | 招待受諾まで時間がかかる。今日マージ不可 |
+| Code Owners required を一時オフ | 手動戻し忘れリスク。「こっそり外す」は透明性ゼロ |
+| 直接main push | force push扱いでRulesetがブロック。不可 |
+
+---
+
+## 7. 月次レビュー時の確認項目
 
 `harness-health-improver` 実行時に以下を確認：
 
