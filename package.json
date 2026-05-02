@@ -7,9 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:types": "supabase gen types typescript --project-id nrvfmvdozgavohmduttn --schema public > lib/types/database.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.3.0",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.105.1",
     "next": "16.2.1",
