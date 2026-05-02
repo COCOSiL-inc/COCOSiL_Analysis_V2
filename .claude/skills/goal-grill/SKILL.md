@@ -7,9 +7,9 @@ description: >
   Use when: "目標を詰めたい" "何を作るか決めたい" "ゴールが曖昧" "受け入れ基準がない"
   "実装前に整理したい" "goal grill" "goal を grill して" "新機能の目標を確認したい"
   "acceptance criteria を決めたい" — or when starting any non-trivial implementation
-  without existing docs/goals/ or a PRD-equivalent file.
+  without existing docs/output/goals/ or a PRD-equivalent file.
   For full 6-layer PRD (Vision/Outcome/Capability/Feature/Eval/EngSpec),
-  use requirements-grill instead.
+  use requirements-doc-creator instead.
 ---
 
 # goal-grill Skill
@@ -23,7 +23,7 @@ description: >
 このSkillは **Vision / Outcome / Eval** の 3 層を最小限明確化する。
 
 - 実装前に「何のために作るか」「完了をどう判定するか」を固める
-- 重い 6 層 PRD が不要な単一機能・タスクに使う
+- 重い全機能PRDが不要な単一機能・タスクに使う
 - セッション内で完結することを基本とする（長くなった場合は途中保存を申し出る）
 
 ---
@@ -37,7 +37,7 @@ description: >
 | 条件 | モード |
 |---|---|
 | 「resume」「続き」「前回のゴール」という言葉 or セッションファイル（`*-session.md`）が示された | `RESUME` |
-| `docs/goals/` 内の既存ゴールファイルを指して「更新したい」 | `REVIEW` |
+| `docs/output/goals/` 内の既存ゴールファイルを指して「更新したい」 | `REVIEW` |
 | それ以外 | `NEW` |
 
 **Step 2: 既存コンテキストの確認（NEW / REVIEW 時）**
@@ -45,7 +45,7 @@ description: >
 以下を順に確認する。存在すれば内容を把握してから質問を始める。
 
 ```
-docs/goals/           ← 既存ゴールファイルがあれば読む
+docs/output/goals/    ← 既存ゴールファイルがあれば読む
 docs/harness/HARNESS_DECISIONS.md  ← プロジェクト種別・リスクを把握
 AGENTS.md             ← repo 全体契約を確認
 ```
@@ -55,8 +55,8 @@ AGENTS.md             ← repo 全体契約を確認
 モードが `RESUME` の場合:
 
 ```
-1. 指示されたセッションファイル（docs/goals/<slug>-session.md）を Read する
-   ファイルが指定されていない場合は docs/goals/ を ls して最新の *-session.md を探す
+1. 指示されたセッションファイル（docs/output/goals/<slug>-session.md）を Read する
+   ファイルが指定されていない場合は docs/output/goals/ を ls して最新の *-session.md を探す
 
 2. ## State セクションを確認:
    - current_layer → ここから再開する
@@ -78,7 +78,7 @@ Goal Grill を起動しました。
 
 モード: <NEW|RESUME|REVIEW>
 対象タスク/機能: <ユーザーの説明 or TBD>
-書き出し先: docs/goals/<slug>.md（承認後）
+書き出し先: docs/output/goals/<slug>.md（承認後）
 ---
 
 Vision → Outcome → Eval の順に 1 問ずつ進めます。
@@ -110,7 +110,7 @@ current_layer の open_questions が空になるまで:
 
   recommended = derive_recommended_answer(Q)
     # 優先順:
-    # 1. 既存 docs/goals/ や HARNESS_DECISIONS.md から推論
+    # 1. 既存 docs/output/goals/ や HARNESS_DECISIONS.md から推論
     # 2. ユーザーの前回答から推論
     # 3. references/layers.md のデフォルト値
     # 4. "まだ情報が不足しています。ご意見をお聞かせください"（最終手段）
@@ -173,7 +173,7 @@ current_layer の open_questions が空になるまで:
 ```
 === WRITEOUT PREVIEW ===
 
-書き出し先: docs/goals/<slug>.md
+書き出し先: docs/output/goals/<slug>.md
 
 --- Vision ---
 <V 層の回答サマリー>
@@ -205,9 +205,9 @@ current_layer の open_questions が空になるまで:
 **Stage 3: WRITEOUT 実行（承認後のみ）**
 
 ```
-1. docs/goals/<slug>.md を Write で作成
+1. docs/output/goals/<slug>.md を Write で作成
 2. 以下を表示:
-   「✓ docs/goals/<slug>.md に書き出しました。
+   「✓ docs/output/goals/<slug>.md に書き出しました。
 
     このファイルを AGENTS.md に参照追記しますか？
     「はい」→ AGENTS.md の Read first 節に 1 行追記
@@ -226,7 +226,7 @@ current_layer の open_questions が空になるまで:
 - 5 ターン連続でセッションが進んだとき（任意、長いセッションのための安全網）
 
 ```
-1. docs/goals/<slug>-session.md を StrReplace（既存）または Write（初回）で保存する
+1. docs/output/goals/<slug>-session.md を StrReplace（既存）または Write（初回）で保存する
    SESSION_TEMPLATE.md のフォーマットに従い、以下を更新する:
    - ## State: current_layer / turns / last_saved / next_action / web_gate_suppressed_layers
    - ## Layer Progress: answered / ready_to_transition / transition_done / writeout_done
@@ -235,10 +235,10 @@ current_layer の open_questions が空になるまで:
    - ## Notes: 層違反・矛盾などがあれば追記
 
 2. 以下を表示する:
-   「セッションを保存しました: docs/goals/<slug>-session.md
+   「セッションを保存しました: docs/output/goals/<slug>-session.md
 
     次回は新しいチャットで以下をそのまま入力して再開できます:
-    「docs/goals/<slug>-session.md の goal grill を resume して」」
+    「docs/output/goals/<slug>-session.md の goal grill を resume して」」
 ```
 
 ---

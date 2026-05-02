@@ -1,7 +1,11 @@
 # COCOSiL V2
 
-MBTI × 星座 × 動物占い × 六星占術 の統合性格分析 ＋ 共感AIチャット。  
-「根拠のある共感」を届けるパーソナリティ分析 Web アプリ。
+「自分を知って、ラクになる」  
+共感AIチャット × 4体系パーソナリティ分析で、対人関係の繰り返しの消耗を解消する。
+
+> **ミッション：** 東洋哲学が2500年追求した「自己認識による解放」をAIで民主化する。  
+> **ターゲット：** 25-35歳の若手社会人。職場・恋愛・家族との関係で繰り返し消耗している層。  
+> **PMF仮説：** 7日以内再訪率 30%以上。
 
 ## 必要なツール
 
@@ -44,11 +48,13 @@ pnpm dev
 
 | ドキュメント | 内容 |
 |---|---|
-| [コンセプト資料](docs/concepts/コンセプト資料.md) | プロダクト仕様・機能要件・DBスキーマ |
-| [アーキテクチャガイドライン](docs/concepts/antigravity_guideline_v2.md) | V2 設計方針 |
-| [プラグイン構成](docs/setup/COCOSiL_plugin_setup.md) | Claude Code プラグイン・SKILL 設定 |
-| [技術スタック議論ログ](docs/setup/議論ログ_技術スタック選定.md) | 技術選定の背景 |
+| [コンセプト資料](docs/input/concepts/コンセプト資料.md) | プロダクト仕様・機能要件・DBスキーマ |
+| [プロダクト概要](docs/input/concepts/overview-v2.md) | ミッション・ポジショニング・ターゲット詳細 |
+| [リーンキャンバス](docs/input/concepts/lean-canvas-v3.md) | ビジネスモデル・KPI・料金プラン |
+| [言語設計ガイド](docs/input/concepts/language-design-v1.md) | ブランドフレーズ・禁止語ルール |
+| [アーキテクチャガイドライン](docs/input/concepts/antigravity_guideline_v2.md) | V2 設計方針 |
+| [プラグイン構成](docs/input/setup/COCOSiL_plugin_setup.md) | Claude Code プラグイン・SKILL 設定 |
 
 ## 技術スタック
 
-Next.js 16 (App Router) / React 19 / TypeScript 5 / Tailwind CSS 4 / Supabase / Vercel / Zod 4 / pnpm
+Next.js 16 (App Router) / React 19 / TypeScript 5 / Tailwind CSS 4 / Supabase / Clerk / OpenAI / Gamma API / Vercel / Zod 4 / pnpm

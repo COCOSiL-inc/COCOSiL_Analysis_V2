@@ -1,0 +1,8 @@
+# 長期ブランチ保護リスト
+# このファイルに記載されたブランチは、自動削除系のActionsによる削除をSKIPする。
+# マージ後自動削除（GitHub設定）の対象外にするにはGitHub Branch Protection Rulesを使うこと。
+#
+# 形式：1行1ブランチ名（完全一致）。コメント行は # で始める。
+# 管理者：えんまさ（@MasakiEndo44）
+
+docs/concepts-docs-update

@@ -1,0 +1,48 @@
+name: Branch Naming Check
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, reopened, synchronize]
+
+jobs:
+  check-branch-name:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Check branch naming convention
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.payload.pull_request.head.ref;
+            const allowed = /^(feature|fix|docs|chore|refactor)\/.+/;
+
+            if (allowed.test(branch)) {
+              console.log(`✅ Branch name OK: ${branch}`);
+              return;
+            }
+
+            const body = [
+              `⚠️ **ブランチ名が命名規則に沿っていません**: \`${branch}\``,
+              '',
+              '**推奨プレフィックス:**',
+              '| プレフィックス | 用途 |',
+              '|---|---|',
+              '| `feature/<slug>` | 新機能開発 |',
+              '| `fix/<slug>` | バグ修正 |',
+              '| `docs/<slug>` | ドキュメント・仕様書 |',
+              '| `chore/<slug>` | 設定・依存関係・CI変更 |',
+              '| `refactor/<slug>` | リファクタリング |',
+              '',
+              '`<slug>` は kebab-case で記述してください（日本語・スペース禁止）。',
+              '',
+              'このコメントは警告のみです。マージはブロックされません。',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });

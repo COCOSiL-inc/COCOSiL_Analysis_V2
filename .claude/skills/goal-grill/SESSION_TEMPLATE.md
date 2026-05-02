@@ -1,7 +1,7 @@
 # goal-grill Session Template
 
 このファイルをセッションファイルの雛形として使う。  
-実際のセッションファイルは `docs/goals/<slug>-session.md` に保存する。
+実際のセッションファイルは `docs/output/goals/<slug>-session.md` に保存する。
 
 ---
 
@@ -86,5 +86,5 @@ Source（Web採用の場合）: <URL>
 ```
 - [ ] V層: 未完了
 - [ ] O層: 未完了
-- [ ] E層（最終）: docs/goals/<slug>.md → 未完了
+- [ ] E層（最終）: docs/output/goals/<slug>.md → 未完了
 ```
