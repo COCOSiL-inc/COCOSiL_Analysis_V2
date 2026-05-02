@@ -1,0 +1,20 @@
+# COCOSiL V2 CODEOWNERS
+# チーム: えんまさ (@MasakiEndo44) + 遠藤さん (@遠藤のGitHubユーザー名 — 後で追記)
+#
+# フラット構造版。モノレポの packages/ → app/ に翻訳済み。
+
+# バックエンド・インフラ（えんまさ担当）
+app/api/                @MasakiEndo44
+supabase/               @MasakiEndo44
+lib/                    @MasakiEndo44
+
+# CI/CD・ハーネス設定（両者レビュー）
+.github/                @MasakiEndo44
+.claude/                @MasakiEndo44
+
+# フロントエンド・App Router（えんまさ + 遠藤さん）
+app/                    @MasakiEndo44
+
+# 環境変数・パッケージ（両者レビュー）
+.env.example            @MasakiEndo44
+package.json            @MasakiEndo44

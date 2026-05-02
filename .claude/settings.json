@@ -1,9 +1,15 @@
 {
+  "enabledMcpjsonServers": ["supabase"],
   "hooks": {
     "PreToolUse": [
       {
         "matcher": "Write|Edit",
-        "hook": "grep -qE '(sk-[a-zA-Z0-9]{20,}|eyJh[a-zA-Z0-9]{20,}|supabase_service_role|SUPABASE_SERVICE_ROLE)' \"$CLAUDE_FILE_PATH\" 2>/dev/null && echo 'BLOCK: Potential secret detected. Use environment variables instead.' && exit 1 || exit 0"
+        "hooks": [
+          {
+            "type": "command",
+            "command": "grep -qE '(sk-[a-zA-Z0-9]{20,}|eyJh[a-zA-Z0-9]{20,}|supabase_service_role|SUPABASE_SERVICE_ROLE)' \"$CLAUDE_FILE_PATH\" 2>/dev/null && echo 'BLOCK: Potential secret detected. Use environment variables instead.' && exit 1 || exit 0"
+          }
+        ]
       }
     ]
   }
