@@ -7,6 +7,7 @@ import type {
   LikertValue,
   MbtiAnswer,
 } from "@/app/diagnosis/mbti/types";
+import type { Json, TablesInsert } from "@/lib/types/database";
 
 /**
  * POST /api/diagnosis/mbti
@@ -75,22 +76,22 @@ export async function POST(request: Request) {
 
     // ---- Supabase に保存 ----
     const supabase = getSupabaseClient();
+    const insertRow: TablesInsert<"mbti_results"> = {
+      mbti_type: result.mbtiType,
+      scores: result.scores as unknown as Json,
+      pci: result.pci as unknown as Json,
+      answers: (body.answers as unknown as Json) ?? null,
+    };
     const { data: dbResult, error: dbError } = await supabase
       .from("mbti_results")
-      .insert({
-        mbti_type: result.mbtiType,
-        scores: result.scores,
-        pci: result.pci,
-        answers: body.answers || null, // スキップ時は undefined のため null
-      } as any)
+      .insert(insertRow)
       .select("id")
       .single();
 
     if (dbError) {
       console.error("Supabase insert error:", dbError);
-      // エラー時もユーザー体験を妨げないよう、結果自体は画面に返す実装とする
     } else if (dbResult) {
-      result.id = (dbResult as any).id;
+      result.id = dbResult.id;
     }
 
     return NextResponse.json<DiagnosisResponse>({
