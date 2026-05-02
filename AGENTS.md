@@ -1,25 +1,44 @@
 <!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# このNext.jsは知っているNext.jsではない
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+このバージョンには破壊的変更が含まれており、API・規約・ファイル構造がトレーニングデータと異なる場合がある。コードを書く前に `node_modules/next/dist/docs/` の関連ガイドを必ず読むこと。非推奨警告に従うこと。
 <!-- END:nextjs-agent-rules -->
 
-# Cocosil V2 Project Guidelines for Agents
+# COCOSiL V2 エージェント向けガイドライン
 
-## 1. API-First Design & Type-Safe Contracts
-- **Strict Rule:** Frontend implementation MUST NOT start until API requests/responses are fully typed in TypeScript and merged to the main branch.
-- **Contract-Driven Development:** Frontend development should use mock data based on agreed-upon types until backend implementation is complete to avoid delays and implementation rewrite hell.
+## 1. API-First 設計 & 型安全な契約
 
-## 2. Layered Architecture (Role Division)
-- **Backend/Infra Layer:** Responsible for Supabase setup, DB schema design, Row Level Security (RLS) configuration, full API type definitions, and core logic. Ensures data structure and security.
-- **Frontend/Requirements Layer:** Responsible for detailed requirements, UI/UX implementation, and efficient frontend development utilizing Next.js App Router Server Components.
+- **厳格ルール:** APIリクエスト/レスポンスの型定義をTypeScriptで完成させmainブランチにマージするまで、フロントエンド実装を開始してはならない。
+- **コントラクト駆動開発:** 型定義が確定するまで、フロントエンドは合意済みの型に基づいたモックデータで開発を進める。実装の手戻りを防ぐため。
 
-## 3. Tech Stack & SOP
-- **Stack:** Next.js (App Router mandatory), Supabase, Vercel, Tailwind CSS.
-- **Environment:** Unix-based environments (Mac or WSL2) only. 
-- **Initialization:** Use `npx create-next-app` with App Router, Tailwind CSS, and TypeScript.
-- **Env Vars:** NEVER commit environment variables (e.g., Supabase Anon Key) to the repository. Manage them locally in `.env.local` securely.
+## 2. レイヤードアーキテクチャ（役割分担）
 
-## 4. Resource Constraints & Database Strategy
-- **Strict Storage Limit:** Supabase is on a free tier (max 0.5GB). Design text data (e.g., chat histories) with minimal indexing and implement aggressive **data deletion/archiving strategies** to prevent exceeding this limit.
-- **Project Limits:** Pause any old or unused Supabase projects to free up resources for V2.
+- **バックエンド/インフラ層:** Supabaseセットアップ・DBスキーマ設計・RLS設定・API型定義・コアロジックを担当。データ構造とセキュリティを保証する。
+- **フロントエンド/要件層:** 詳細要件・UI/UX実装・Next.js App Router Server Componentsを活用した効率的なフロントエンド開発を担当。
+
+## 3. 技術スタック & SOP
+
+- **スタック:** Next.js 16（App Router必須）, Supabase, Vercel, Tailwind CSS 4, TypeScript 5。
+- **実行環境:** Unixベース環境（Mac または WSL2）のみ。
+- **環境変数:** `.env.local` で管理。リポジトリには絶対にコミットしない。アプリケーションコード内では `@/lib/env` 経由でのみ読む。`process.env` の直接参照禁止。
+
+## 4. リソース制約 & データベース戦略
+
+- **ストレージ上限:** Supabaseは無料枠（最大0.5GB）。テキストデータ（チャット履歴等）はインデックスを最小化し、上限超過を防ぐための積極的な**削除/アーカイブ戦略**を初日から実装すること。
+- **プロジェクト数制限:** 古い・未使用のSupabaseプロジェクトは一時停止し、V2のリソースを確保する。
+
+## 5. 開発環境 — 絶対に守るルール
+
+- **パッケージマネージャ:** `pnpm` のみ使用。`npm install` / `yarn add` は禁止。常に `pnpm add` / `pnpm install` を使う。
+- **`src/` ディレクトリは存在しない:** パスエイリアス `@/*` は `./*`（プロジェクトルート）にマップされる。ファイルは `app/`・`lib/`・`public/` 直下に置く。`src/app/` や `src/lib/` は存在しない。
+- **環境変数の読み方:** `@/lib/env` の `env`（クライアント用）または `getServerEnv()`（サーバー用）を使う。アプリケーションコードで `process.env.XXX` を直接読まない。
+- **Supabase型定義:** `supabase gen types typescript --local > lib/types/database.ts` で生成する。手書き禁止。
+- **Zodのimport:** `zod/v4` サブパスを使う: `import { z } from 'zod/v4'`。
+
+## 6. ドメイン言語 — 禁止表現
+
+ユーザーが目にする文言（UIコピー・AIプロンプト・エラーメッセージ・シェアカード）を書く前に、`language-design` スキルを必ず読み込む。
+
+- **禁止語:** 占い、鑑定、運勢、占い師、当たる、霊感、霊視
+- **代替表現:** 性格分析、パーソナリティ診断、統合レポート、傾向、特徴
+- **例外:** コード内の変数名・DBカラム名では正式名称（動物占い、六星占術）の使用可。
