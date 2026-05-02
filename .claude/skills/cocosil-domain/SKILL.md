@@ -61,6 +61,7 @@ description: |
 
 ```
 lib/prompts/**
+lib/data/**
 docs/language/**
 ```
 

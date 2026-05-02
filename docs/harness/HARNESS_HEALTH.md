@@ -22,19 +22,12 @@
   - `.github/workflows/ci.yml` に `test` ジョブを追加
 - **担当：** ヒラメ（API/構造設計担当）
 
-### G2. `lib/prompts/` 未作成
-- **状態：** ❗ 未解消
-- **詳細：** AIプロンプトテンプレートを格納するディレクトリが存在しない。AGENTS.md §7 では Layer 2 として「将来予定地」と明記。
-- **影響：** えんまさ（意味設計担当）が触るべきファイルパスが現時点では空。
-- **対応方針：** F3 共感AIチャットの3フェーズプロンプト設計時に作成。
-- **担当：** えんまさ
+### ~~G2. `lib/prompts/` 未作成~~ ✅ 解消（2026-05-02）
+- **解消内容：** `docs/output/prompts/` として配置確定・ディレクトリ作成済み。AIプロンプトテンプレートはコードではなくコンテンツ成果物として `docs/output/` 下で管理。
 
-### G3. `lib/data/` 未作成
-- **状態：** ❗ 未解消
-- **詳細：** 4体系ナレッジベース（MBTI / 星座 / 動物性格診断60アニマル / 六星占術）の格納先が存在しない。
-- **影響：** 統合レポート生成時のナレッジ参照ができない。
-- **対応方針：** F2 統合レポート実装前に作成。動物占い60アニマルの著作権確認も並行して実施（要件定義 v1.3 §8 リスク表参照）。
-- **担当：** えんまさ（コンテンツ） + ヒラメ（配置構造）
+### ~~G3. `lib/data/` 未作成~~ ✅ 解消（2026-05-02）
+- **解消内容：** `docs/output/data/` として配置確定・ディレクトリ作成済み。4体系ナレッジ（MBTI / 星座 / 動物性格診断 / 六星占術）はコンテンツ成果物として `docs/output/` 下で管理。
+- **残作業：** 動物占い60アニマルの著作権確認（要件定義 v1.3 §8 リスク表参照）。
 
 ### ~~G4. CODEOWNERS が単独運用~~ ✅ 解消（2026-05-02）
 - **解消内容：** ヒラメ（@shuichiro16）・まあみ（@maami415）の GitHub アカウント確定。`.github/CODEOWNERS` を v1.3 体制（3人レイヤー別分業）に更新。
@@ -44,21 +37,11 @@
 - **解消内容：** `.env.local` に `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` と `CLERK_SECRET_KEY` を設定済み。
 - **残作業：** GitHub Secrets への登録（CI で `build` ジョブを動かす場合に必要）→ G6 で追跡。
 
-### G6. GitHub Secrets 未登録
-- **状態：** ❗ 未解消
-- **詳細：** `SUPABASE_ACCESS_TOKEN` / `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` が GitHub Secrets に未登録。
-- **影響：** `ci.yml` に `build` ジョブを追加できない。`deploy.yml` も作成不可。
-- **対応方針：** GitHub Settings > Secrets and variables > Actions で登録。
-- **担当：** えんまさ（GitHub UI 手動作業）
+### ~~G6. GitHub Secrets 未登録~~ ✅ 解消（2026-05-02）
+- **解消内容：** `SUPABASE_ACCESS_TOKEN` / `VERCEL_TOKEN` / `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` を GitHub Secrets に登録済み。`ci.yml` に `build` ジョブ追加・`deploy.yml` 作成が可能な状態。
 
-### G7. Branch Protection Rules 未設定
-- **状態：** ❗ 未解消
-- **詳細：** `main` ブランチへの直接 push が可能な状態。PR 必須化と status check 必須化が未設定。
-- **対応方針：** GitHub Settings > Branches で `main` に Protection Rule を追加：
-  - Require pull request before merging
-  - Require status checks: `ci/typecheck` + `ci/lint`
-  - Block force push
-- **担当：** えんまさ（GitHub UI 手動作業）
+### ~~G7. Branch Protection Rules 未設定~~ ✅ 解消（2026-05-02）
+- **解消内容：** `main` ブランチに Ruleset を設定済み。PR 必須（Code Owners レビュー含む）・status checks（typecheck + lint）必須・force push ブロックを有効化。
 
 ---
 
