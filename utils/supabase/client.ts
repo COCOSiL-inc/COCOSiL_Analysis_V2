@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/types/database";
 
 // F1 MVP用の簡易クライアント（将来のssr連携・認証連携には @supabase/ssr を使用推奨）
-let supabaseClient: ReturnType<typeof createClient> | null = null;
+let supabaseClient: ReturnType<typeof createClient<Database>> | null = null;
 
 export function getSupabaseClient() {
   if (supabaseClient) return supabaseClient;
@@ -13,6 +14,6 @@ export function getSupabaseClient() {
     throw new Error("Supabase URL and Anon Key are rarely missing in env variables.");
   }
 
-  supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey);
   return supabaseClient;
 }

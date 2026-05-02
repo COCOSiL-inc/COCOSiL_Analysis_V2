@@ -1,0 +1,39 @@
+# COCOSiL V2 CODEOWNERS
+# チーム（v1.3 体制）:
+#   えんまさ @MasakiEndo44 — 意味設計（言語・AIプロンプト・ナレッジ）
+#   ヒラメ   @shuichiro16  — 構造設計（API・DB・インフラ）
+#   まあみ   @maami415     — 見た目設計（UI実装）
+#
+# フラット構造版。詳細な担当境界は AGENTS.md §7 / .claude/skills/cocosil-domain/SKILL.md 参照。
+
+# 構造設計（ヒラメ担当）
+app/api/                @shuichiro16
+supabase/               @shuichiro16
+lib/diagnostics/        @shuichiro16
+lib/clerk/              @shuichiro16
+lib/types/              @shuichiro16
+proxy.ts                @shuichiro16
+vercel.json             @shuichiro16
+
+# 見た目設計（まあみ担当）
+app/(auth)/             @maami415
+app/(public)/           @maami415
+components/             @maami415
+app/layout.tsx          @maami415
+app/globals.css         @maami415
+
+# 意味設計（えんまさ担当）
+lib/prompts/            @MasakiEndo44
+lib/data/               @MasakiEndo44
+docs/language/          @MasakiEndo44
+
+# 共通基盤・ハーネス（えんまさレビュー）
+.github/                @MasakiEndo44
+.claude/                @MasakiEndo44
+AGENTS.md               @MasakiEndo44
+docs/harness/           @MasakiEndo44
+
+# 環境変数・パッケージ（全員影響）
+.env.example            @MasakiEndo44 @shuichiro16
+package.json            @MasakiEndo44 @shuichiro16
+pnpm-lock.yaml          @MasakiEndo44 @shuichiro16
