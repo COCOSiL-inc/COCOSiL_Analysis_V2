@@ -84,7 +84,8 @@ push して PR を作成しますか？
 git push -u origin <現在のブランチ名>
 ```
 
-PR body は `/pr-draft-summary` の形式に準拠して生成する（Summary・Test plan・関連Issue）:
+PR body は `/pr-draft-summary` の形式に準拠して生成する（Summary・Test plan・関連Issue）。
+`/start-task` の Step 2.5 で記録された設計中枢の判定結果を「設計中枢メモ」として引き継ぐ:
 
 ```bash
 gh pr create \
@@ -92,6 +93,18 @@ gh pr create \
   --body "$(cat <<'EOF'
 ## Summary
 - <変更内容を箇条書き 1〜3項目>
+
+## 設計中枢チェック（/start-task 時の判定結果）
+
+| 問い | 判定 | 根拠 |
+|---|---|---|
+| Q1 無明を晴らすか？ | <○/△/N/A> | <1行> |
+| Q2 三毒を増幅しないか？ | <○/△/N/A> | <1行> |
+| Q3 順序を守れるか？ | <○/△/N/A> | <1行> |
+| Q4 大我への移行支援か？ | <○/△/×/N/A> | <1行> |
+| Q5 良い人間関係への寄与か？ | <○/△/×/N/A> | <1行> |
+
+<!-- Should が × の場合は戦略的意味をここに記録: -->
 
 ## Test plan
 - [ ] pnpm typecheck が通ること
