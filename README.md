@@ -9,6 +9,19 @@
 > **ターゲット：** 25-35歳の若手社会人。職場・恋愛・家族との関係で繰り返し消耗している層。  
 > **PMF仮説：** 7日以内再訪率 30%以上。
 
+### 設計中枢（Layer 0）— すべての判断の最上位基準
+
+COCOSiLの機能・コピー・プロンプト判断はすべて**Why → How → So What**の三段論法に基づく：
+
+| 層 | 根拠 | プロダクトへの応用 |
+|---|---|---|
+| **Why** | 無明（仏陀）/ 自知者明（老子） | 対人消耗の根源は「自己への無知」 |
+| **How** | 三毒・五蘊・パンチャ構造・止観 | 4体系統合 = パンチャ構造の論理的必然 |
+| **So What** | ハーバード成人発達研究（80年） | 自己理解は「良い人間関係」への入口 |
+
+**設計3原則**: ① Dispel, Don't Decorate. ② From Reaction to Reflection. ③ Self-Knowing for Better-Relating.  
+**詳細**: [設計中枢 v1.0](docs/input/concepts/COCOSiL設計中枢.md)
+
 ## 必要なツール
 
 - Node.js 20+
@@ -50,6 +63,7 @@ pnpm dev
 
 | ドキュメント | 内容 |
 |---|---|
+| [**設計中枢 v1.0**](docs/input/concepts/COCOSiL設計中枢.md) | **Layer 0 — 全判断の最上位基準。Why/How/So What・3原則・5問リトマス試験紙** |
 | [コンセプト資料](docs/input/concepts/コンセプト資料.md) | プロダクト仕様・機能要件・DBスキーマ |
 | [プロダクト概要](docs/input/concepts/overview-v2.md) | ミッション・ポジショニング・ターゲット詳細 |
 | [リーンキャンバス](docs/input/concepts/lean-canvas-v3.md) | ビジネスモデル・KPI・料金プラン |
