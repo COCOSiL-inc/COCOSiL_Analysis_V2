@@ -54,6 +54,11 @@ git log origin/$(git branch --show-current)..HEAD --oneline 2>/dev/null || true
 ## Step 2.5: 設計中枢 承認ゲート（自動実行・スキップ不可）
 
 > 詳細: `docs/input/concepts/COCOSiL設計中枢.md`（Layer 0 — すべての判断の最上位基準）
+>
+> ⚠️ **これは「初期見立て」です** — 実装着手前に逆方便（Must違反）を弾くための事前ゲート。
+> PR作成時の判定（`.github/pull_request_template.md` の独立判定列）は**実装後に再判定**する役割で、ここでの判定とは独立している。
+> 役割の関係：このStep 2.5 = 「着手判断」、PR template = 「マージ判断」。
+> 設計根拠: `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` 原則②
 
 タスクの内容・変更予定ファイル・担当レイヤーをもとに、5問のリトマス試験紙を適用して判定結果を出力する。
 

@@ -43,31 +43,30 @@
 - **残作業：** `ONBOARDING.md` のまあみセクションに `DESIGN_FLOW.md` へのリンクを追加する。
 
 ### G1. テストコマンドが未整備
-- **状態：** ❗ 未解消
-- **詳細：** `package.json` に `test` スクリプトなし。Vitest 未導入。CI に `test` ジョブもなし。
-- **影響：** ロジックの正確性は型チェックでしか担保できない。診断計算ロジック（`lib/diagnostics/`）の回帰検出ができない。`lib/prompts/` の禁止語彙混入も検知不能。
-- **対応方針（TDDベストプラクティス適用版）：**
-  1. `pnpm add -D vitest @vitejs/plugin-react`
-  2. `package.json` に `"test": "vitest run"` を追加
-  3. `lib/diagnostics/__tests__/` 作成（MBTI境界値・六星占術計算の単体テスト）
-  4. `.github/workflows/ci.yml` に `test` ジョブを追加
-  5. F3実装時に `lib/prompts/__tests__/` を追加（禁止語彙・必須キーワードテスト）
-- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Deterministic First原則）
+- **状態：** 🟡 部分解消（2026-05-05・整合性ハーネス再設計 Phase 1）
+- **詳細：** Vitest 4.1.5 を導入済み。`package.json` の `test` / `test:watch` スクリプト追加・`vitest.config.ts` 設置・`.github/workflows/ci.yml` に `test` ジョブ追加完了。`lib/prompts/__tests__/` と `lib/constitution/__tests__/` の2スイートが CI で動作。
+- **残作業：** `lib/diagnostics/__tests__/` の MBTI境界値・六星占術計算テストは F2 実装開始前に追加（決定論的ロジック保証）。
+- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Deterministic First原則）/ `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` Action 3
 - **担当：** ヒラメ（API/構造設計担当）
 
 ### G10. プロンプト回帰テストおよびEval未整備
-- **状態：** ❗ 未解消（F3実装開始時に着手）
-- **詳細：** `lib/prompts/` の変更がプロダクト品質に与える影響を自動検知できない。禁止語彙の混入・必須フェーズキーワードの欠落・三毒増幅の発生がPRレビューまで気づけない。
-- **影響：** F3（共感AIチャット）実装後、プロンプトの小変更が「共感→安心→分析→行動」のフロー品質を劣化させても検知不能。ブランドアイデンティティの毀損リスク（禁止語彙混入）。
-- **対応方針（段階的）：**
-  - **Phase 1（F3実装時）：** Vitest文字列テスト
-    ```typescript
-    expect(prompt).not.toContain("占い")  // 禁止語彙
-    expect(prompt).toContain("共感")       // 必須キーワード
-    ```
+- **状態：** 🟡 部分解消（2026-05-05・F3を待たず先行導入）
+- **詳細：** Phase 1 として `lib/prompts/__tests__/banned-words.test.ts` を導入済み。既存プロンプト2本（`onboarding.ts` / `contradiction-handling.ts`）に対する禁止語彙テスト + 共感フェーズ必須キーワードテストが CI で動作。`lib/constitution/__tests__/drift.test.ts` で文書（AGENTS.md / language-design-v1.md / cocosil-domain SKILL.md）とコード（`lib/constitution/banned-words.ts`）の整合性も自動検証。
+- **残作業：**
+  - F3実装時に共感チャット 3フェーズプロンプトのテスト追加
   - **Phase 2（Sprint 3以降）：** promptfoo 導入（設計中枢5問をEvalルーブリック化）
-- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Prompt as Code原則 / Design-Center as Rubric原則）
+- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Prompt as Code原則 / Design-Center as Rubric原則）/ `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` Action 3
 - **担当：** ヒラメ（実装）・えんまさ（Evalルーブリック内容承認）
+
+### G11. PR template 自己審査構造（C2）
+- **状態：** ✅ 解消（2026-05-05）
+- **解消内容：** `.github/pull_request_template.md` の設計中枢チェック5問を「実装者判定列 / レビュアー判定列」の独立判定形式に変更。`.github/workflows/disagreement-detector.yml` で両者の差分を自動検知し、PRに議論喚起コメントを投稿する。`.claude/commands/start-task.md` Step 2.5 を「初期見立て」と明示し、PR templateの判定とは役割を分離。
+- **設計根拠：** `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` 原則② / `docs/discussions/議論ログ_設計中枢運用落とし穴.md`（自己審査71%通過の研究）
+
+### G12. Constitution as Comment（C1）
+- **状態：** ✅ 解消（2026-05-05）
+- **解消内容：** `lib/constitution/` を新設（`banned-words` / `ux-sequence` / `immutables` / `mutables` / `index`）。Autogenesis Constitution と言語設計の **正をコードに昇格**。`AGENTS.md` §7・`language-design-v1.md` §1・`cocosil-domain skill` のドメイン言語ルールに「正は `lib/constitution/`、ドリフト時はコードを正とする」と注記追加。`lib/constitution/__tests__/drift.test.ts` が文書とコードの整合性を CI で検証。
+- **設計根拠：** `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` 原則①
 
 ### ~~G2. `lib/prompts/` 未作成~~ ✅ 解消（2026-05-02）
 - **解消内容：** `lib/prompts/` ディレクトリ作成済み。APIルート（`app/api/chat/`・`app/api/report/`）から `@/lib/prompts/` でエイリアス参照できる。
@@ -108,13 +107,16 @@
 | 破壊的Bashコマンドのhookブロック | ✅ 完了（Phase 2） |
 | Layer 1/2/3 Protected Areas（AGENTS.md §7） | ✅ 完了（Phase 2） |
 | 検証コマンド（typecheck, lint） | ✅ 完了 |
-| 検証コマンド（test） | ❗ G1 |
+| 検証コマンド（test） | 🟡 G1 部分解消（lib/diagnostics 残） |
 | 検証コマンド（build, CI） | ✅ 完了（G5/G6 解消済み） |
-| CI/CD Pipeline（typecheck + lint） | ✅ 完了 |
+| CI/CD Pipeline（typecheck + lint + test） | ✅ 完了（test ジョブ追加 2026-05-05） |
 | CI/CD Pipeline（security, deploy） | 🟡 Phase 4 以降 |
 | Branch Protection | ✅ 完了（G7 解消済み） |
 | アトミック確認ループ（プレビュー + チェックリスト） | ❗ G9（PR#11で解消予定） |
-| 単体テスト（lib/diagnostics/ + lib/prompts/） | ❗ G1・G10 |
+| 単体テスト（lib/prompts/） | ✅ 完了（G10 部分解消・禁止語彙テスト） |
+| 単体テスト（lib/diagnostics/） | ❗ G1 残作業（F2実装前） |
+| Constitution as Code（lib/constitution/） | ✅ 完了（G12 解消 2026-05-05） |
+| PR template 独立判定 + Disagreement Detector | ✅ 完了（G11 解消 2026-05-05） |
 | Eval（設計中枢5問ルーブリック化） | 🟡 G10 Phase 2（Sprint 3以降） |
 | 評価プロンプト（evals/） | ✅ 完了（Phase 3） |
 | HARNESS_DECISIONS / HARNESS_HEALTH | ✅ 完了（Phase 3） |

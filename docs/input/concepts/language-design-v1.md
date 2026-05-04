@@ -54,6 +54,8 @@ COCOSiLは「占いアプリ」ではなく「**自己理解・性格分析AIサ
 
 ## 1. 使用禁止ワード → 代替表現テーブル
 
+> 🔒 **正は `lib/constitution/banned-words.ts`**（Constitution as Code）。本テーブルは解説。コードと本文書がドリフトした場合はコードを正とし、`lib/constitution/__tests__/drift.test.ts` がCIで両者の整合性を検証する。設計根拠: `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` 原則①。
+
 | ❌ 使用禁止 | ✅ 代替表現（文脈によって選択） | 使用場面の例 |
 |-----------|--------------------------|------------|
 | **占い** | 性格分析 / 自己理解 / パーソナリティ診断 / 自分を知る | 機能説明・LP |

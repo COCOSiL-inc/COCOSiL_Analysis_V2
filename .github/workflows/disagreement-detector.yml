@@ -1,0 +1,101 @@
+name: Disagreement Detector
+
+# 設計中枢チェック5問について、実装者判定とレビュアー判定の差分を検出し、
+# PRに議論喚起コメントを投稿する。マージはブロックしない（警告のみ）。
+# 設計根拠: docs/output/decisions/harness-redesign-proposal-2026-05-05.md 原則②
+# Disagreement is a Feature — 割れることが設計中枢の正常作動を示す指標。
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.pull_request.body || ''
+
+            // 「設計中枢チェック」セクションの Q1〜Q5 行を抽出（5列形式）
+            // | Q1 ... | 🔴 Must | <impl> | <rev> | <reason> |
+            const rowRegex = /\|\s*(Q[1-5][^|]*)\|[^|]*\|([^|]*)\|([^|]*)\|/g
+            const rows = []
+            let match
+            while ((match = rowRegex.exec(body)) !== null) {
+              const question = match[1].trim()
+              const impl = match[2].trim()
+              const rev = match[3].trim()
+              rows.push({ question, impl, rev })
+            }
+
+            if (rows.length === 0) {
+              console.log('No 設計中枢チェック table found — skipping')
+              return
+            }
+
+            // HTMLコメントを除去して実値だけ抽出するヘルパー
+            const stripComment = (s) => s.replace(/<!--[\s\S]*?-->/g, '').trim()
+
+            const disagreements = rows.filter((r) => {
+              const impl = stripComment(r.impl)
+              const rev = stripComment(r.rev)
+              if (rev === '') return false      // レビュアーがまだ判定していない
+              if (impl === '') return false     // 実装者が判定していない（別エラー）
+              return impl !== rev
+            })
+
+            // 既存のDisagreement Detectorコメントを探す（重複投稿防止）
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+            const marker = '<!-- disagreement-detector -->'
+            const existing = comments.data.find((c) => (c.body || '').includes(marker))
+
+            if (disagreements.length === 0) {
+              if (existing) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existing.id,
+                  body: `${marker}\n✅ **設計中枢チェック：判定一致** — 実装者とレビュアーの判定に差分はありません。`,
+                })
+              }
+              return
+            }
+
+            const detail = disagreements
+              .map((d) => `- **${d.question}** — 実装者: \`${stripComment(d.impl)}\` / レビュアー: \`${stripComment(d.rev)}\``)
+              .join('\n')
+
+            const body_text = `${marker}
+⚠️ **Disagreement detected** — 実装者とレビュアーの判定が ${disagreements.length} 件割れています。
+
+これは設計中枢が機能している証拠（Disagreement is a Feature）です。1〜2分で議論し、合意点を本PRコメントに残してください。
+
+${detail}
+
+> 設計根拠: \`docs/output/decisions/harness-redesign-proposal-2026-05-05.md\` 原則②`
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: body_text,
+              })
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body_text,
+              })
+            }

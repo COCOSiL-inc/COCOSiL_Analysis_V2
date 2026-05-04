@@ -221,6 +221,21 @@ AIエージェントはAutogenesisの操作境界を厳守する。
 **Schema変更（migration）はAutogenesisでも必ずsandbox eval通過後のみ実行。**  
 **Sub-Agent Pattern変更はえんまさ承認必須（Layer 2扱い）。**
 
+#### Constitution as Code（単一の真実）
+
+> 設計根拠: `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` 原則① / `docs/discussions/議論ログ_設計整合性ハーネス再設計.md`
+
+Autogenesis Constitution（絶対不変リスト・Mutableリスト）と言語設計（禁止語彙）の **正は `lib/constitution/`** とする。本文書（AGENTS.md）・`docs/input/concepts/COCOSiL設計中枢.md`・`docs/input/concepts/language-design-v1.md`・`.claude/skills/cocosil-domain/SKILL.md` は解説（コメンタリー）として位置づけ、ドリフト時はコードを正とする。
+
+| 対象 | コード（正） |
+|---|---|
+| 禁止語彙の正リスト | `lib/constitution/banned-words.ts` |
+| UXシーケンス順序 | `lib/constitution/ux-sequence.ts` |
+| Policy / 評価指標定義（不変） | `lib/constitution/immutables.ts` |
+| Mutable Path / Strategy（進化対象） | `lib/constitution/mutables.ts` |
+
+ドリフトは `lib/constitution/__tests__/drift.test.ts`（CIで実行）が文書とコードを照合して検知する。
+
 #### えんまさのApprove基準（2点のみ）
 
 Autogenesisが生成した改善案は以下の3ゲートを通過後にのみcommitする：
