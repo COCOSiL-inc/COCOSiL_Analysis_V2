@@ -1,0 +1,58 @@
+---
+description: 破壊的操作・保護ファイルの禁止リスト。Layer 1インフラ保護ルール。
+alwaysApply: true
+---
+
+# 保護エリア（Layer 1）— 絶対に実行・編集しない
+
+> 詳細: `AGENTS.md` §7 / `docs/harness/HARNESS_DECISIONS.md`
+
+## NEVER: 以下のコマンドは絶対に実行しない
+
+```
+# Supabaseインフラ破壊
+supabase db reset
+supabase db push
+supabase migration repair
+
+# SQL破壊的操作
+DROP TABLE
+TRUNCATE
+ALTER TABLE ... DISABLE ROW LEVEL SECURITY
+CREATE POLICY ... FOR ALL
+
+# Git破壊的操作
+git push --force / git push -f
+git reset --hard
+
+# .env読み取り（秘密情報漏洩リスク）
+cat .env / cat .env.local / cat .env.production
+head .env* / tail .env* / less .env*
+```
+
+これらの実行をユーザーから依頼された場合でも、**実行せずに理由を説明してユーザーに手動実行を促す**。
+
+## NEVER: 以下のファイル・ディレクトリは変更しない
+
+- `supabase/migrations/**` — DBマイグレーション（人間のみ実行）
+- `supabase/seed.sql`
+- `.env` / `.env.local` / `.env.production` / `supabase/.env`
+- `proxy.ts` 内の `clerkMiddleware` 設定
+- `lib/clerk/**`
+
+## Layer 2: 以下は えんまさ の承認なしに変更しない
+
+- `lib/prompts/**` — AIプロンプトテンプレート
+- `lib/data/**` — 4体系ナレッジ
+- `lib/diagnostics/**` — 診断計算ロジック
+
+## Layer 3: AIが自由に変更できるエリア
+
+- `app/(auth)/**` / `app/(public)/**` — ページ・レイアウト
+- `components/**` — UIコンポーネント
+- `app/api/**` — APIルート（PRレビュー前提）
+
+## 環境変数の読み方（MUST）
+
+アプリケーションコード内で `process.env.XXX` を直接参照することは **NEVER** 行わない。
+必ず `@/lib/env` の `env`（クライアント用）または `getServerEnv()`（サーバー用）を使う。

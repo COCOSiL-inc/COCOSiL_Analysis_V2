@@ -1,0 +1,49 @@
+---
+description: 技術スタック・開発規約。pnpm必須・srcなし・環境変数ルール等。
+alwaysApply: true
+---
+
+# 技術規約（開発環境）
+
+> 詳細: `AGENTS.md` §3〜5
+
+## パッケージマネージャ（MUST）
+
+- `pnpm` のみ使用
+- `npm install` / `yarn add` は **NEVER** 使わない
+- 常に `pnpm add` / `pnpm install` を使う
+
+## ディレクトリ構造（MUST）
+
+- **`src/` ディレクトリは存在しない**
+- パスエイリアス `@/*` は `./*`（プロジェクトルート）にマップされる
+- ファイルは `app/`・`lib/`・`public/`・`components/` 直下に置く
+- `src/app/` や `src/lib/` は **NEVER** 作らない
+
+## 技術スタック
+
+- **Next.js 16**（App Router必須）
+- **Supabase**（DB・Auth）
+- **Clerk**（認証）
+- **Tailwind CSS 4** / **TypeScript 5**
+- **Zod 4** — import は `import { z } from 'zod/v4'`
+
+## 主要コマンド
+
+| コマンド | 説明 |
+|---|---|
+| `pnpm dev` | 開発サーバー起動（Turbopack） |
+| `pnpm build` | 本番ビルド |
+| `pnpm typecheck` | `tsc --noEmit`（型チェック） |
+| `pnpm lint` | ESLint |
+| `pnpm db:types` | Supabase型定義生成 |
+
+## 機能完了の定義
+
+> **型チェック通過（機械）＋ ビルド成功（機械）＋ 動作確認済み（えんまさ）**
+
+この3条件が揃うまでmainマージ不可。実装後は必ず `pnpm typecheck && pnpm build` を実行する。
+
+## Next.js の注意点
+
+このプロジェクトのNext.jsには破壊的変更が含まれており、APIや規約がトレーニングデータと異なる場合がある。コードを書く前に `node_modules/next/dist/docs/` の関連ガイドを確認すること。
