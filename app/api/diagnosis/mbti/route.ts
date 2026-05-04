@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { calculateMbtiResult, isValidMbtiType } from "@/app/diagnosis/mbti/logic";
 import { MBTI_QUESTIONS } from "@/app/diagnosis/mbti/questions";
 import { getSupabaseClient } from "@/utils/supabase/client";
+import { getPostHogClient } from "@/lib/telemetry/client";
 import type {
   DiagnosisResponse,
   LikertValue,
@@ -19,6 +20,8 @@ import type { Json, TablesInsert } from "@/lib/types/database";
  * レスポンス: DiagnosisResponse
  */
 export async function POST(request: Request) {
+  const posthogDistinctId = request.headers.get("X-POSTHOG-DISTINCT-ID") ?? "anonymous";
+
   try {
     const body = await request.json();
     let result;
@@ -92,6 +95,19 @@ export async function POST(request: Request) {
       console.error("Supabase insert error:", dbError);
     } else if (dbResult) {
       result.id = dbResult.id;
+    }
+
+    const phClient = getPostHogClient();
+    if (phClient) {
+      phClient.capture({
+        distinctId: posthogDistinctId,
+        event: "mbti_diagnosis_saved",
+        properties: {
+          mbti_type: result.mbtiType,
+          is_direct_select: !!body.directType,
+          result_id: result.id ?? null,
+        },
+      });
     }
 
     return NextResponse.json<DiagnosisResponse>({

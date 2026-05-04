@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+import posthog from "posthog-js";
 import type { MbtiResult } from "../types";
 import { MBTI_TYPE_DESCRIPTIONS } from "../questions";
 
@@ -17,6 +19,19 @@ const AXIS_LABELS: Record<string, [string, string]> = {
 export function MbtiResultView({ result }: Props) {
   const desc = MBTI_TYPE_DESCRIPTIONS[result.mbtiType];
   const axes = ["EI", "SN", "TF", "JP"] as const;
+
+  useEffect(() => {
+    posthog.capture("mbti_result_viewed", {
+      mbti_type: result.mbtiType,
+    });
+  }, [result.mbtiType]);
+
+  const handleRetry = () => {
+    posthog.capture("mbti_quiz_retried", {
+      mbti_type: result.mbtiType,
+    });
+    window.location.reload();
+  };
 
   return (
     <div className="result-container">
@@ -69,7 +84,7 @@ export function MbtiResultView({ result }: Props) {
       <div className="result-actions">
         <button
           className="action-btn primary"
-          onClick={() => window.location.reload()}
+          onClick={handleRetry}
           type="button"
         >
           もう一度診断する

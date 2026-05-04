@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import posthog from "posthog-js";
 import { MBTI_QUESTIONS, LIKERT_LABELS } from "../questions";
 import type { LikertValue, MbtiAnswer, MbtiResult } from "../types";
 import { MbtiTypeSelector } from "./MbtiTypeSelector";
@@ -56,10 +57,18 @@ export function MbtiQuiz() {
     if (answers.length < totalQuestions) return;
     setIsSubmitting(true);
 
+    posthog.capture("mbti_quiz_completed", {
+      total_questions: totalQuestions,
+    });
+
     try {
+      const distinctId = posthog.get_distinct_id();
       const res = await fetch("/api/diagnosis/mbti", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-POSTHOG-DISTINCT-ID": distinctId ?? "",
+        },
         body: JSON.stringify({ answers }),
       });
       const data = await res.json();
@@ -72,6 +81,7 @@ export function MbtiQuiz() {
       }
     } catch (err) {
       console.error("診断エラー:", err);
+      posthog.captureException(err);
     } finally {
       setIsSubmitting(false);
     }
@@ -80,10 +90,19 @@ export function MbtiQuiz() {
   // ---- スキップ (直接選択) ----
   const handleDirectSelect = useCallback(async (type: string) => {
     setIsSubmitting(true);
+
+    posthog.capture("mbti_direct_type_selected", {
+      mbti_type: type,
+    });
+
     try {
+      const distinctId = posthog.get_distinct_id();
       const res = await fetch("/api/diagnosis/mbti", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-POSTHOG-DISTINCT-ID": distinctId ?? "",
+        },
         body: JSON.stringify({ directType: type }),
       });
       const data = await res.json();
@@ -96,6 +115,7 @@ export function MbtiQuiz() {
       }
     } catch (err) {
       console.error("診断エラー:", err);
+      posthog.captureException(err);
     } finally {
       setIsSubmitting(false);
     }

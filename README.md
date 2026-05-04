@@ -73,4 +73,4 @@ pnpm dev
 
 ## 技術スタック
 
-Next.js 16 (App Router) / React 19 / TypeScript 5 / Tailwind CSS 4 / Supabase / Clerk / OpenAI / Gamma API / Vercel / Zod 4 / pnpm
+Next.js 16 (App Router) / React 19 / TypeScript 5 / Tailwind CSS 4 / Supabase / Clerk / OpenAI / Gamma API / Vercel / Zod 4 / pnpm / PostHog
