@@ -5,12 +5,23 @@
 
 | 項目 | 値 |
 |---|---|
-| 最終更新 | 2026-05-03 |
+| 最終更新 | 2026-05-04 |
 | 次回レビュー | 2026-06-02（月次） |
 
 ---
 
 ## ⚠️ 既知の Gap
+
+### G9. アトミック確認ループ未整備
+- **状態：** ❗ 未解消
+- **詳細：** 機能要素（API）の実装完了後に「正しく動くか」「仕様通りか」を人間が確認する経路がない。現在の検証コマンド（typecheck/lint）は静的解析のみで動的検証ゼロ。PRレビュー時にえんまさが仕様確認できる URL が存在しない。
+- **影響：** 本番環境で初めて動作確認することになり、手戻りコストが実装コストの2倍以上になるリスク（議論ログ参照：Feature 8本中6本が破綻した事例）。
+- **対応方針（優先順位順）：**
+  1. 🔴 `.github/workflows/preview.yml` 作成（PR → Vercelプレビュー URL 自動生成）
+  2. 🔴 `.github/PULL_REQUEST_TEMPLATE.md` 作成（えんまさ確認チェックリスト3項目埋め込み）
+  3. 🟡 Vitest 導入 + `lib/diagnostics/` の unit test（F2実装開始前、G1 と統合）
+- **設計根拠：** `docs/discussions/議論ログ_アトミック確認ループ設計.md` 参照
+- **担当：** ヒラメ（実装）・えんまさ（承認）
 
 ### ~~G8. まあみ claude_design フロー未定義~~ ✅ 解消（2026-05-03）
 - **解消内容：** `docs/harness/DESIGN_FLOW.md` を新規作成。Gate 1（Coherence）→ Gate 2（Compatibility）→ Gate 3（Fidelity）の3段階ゲートを定義。`docs/input/setup/claude_design_prompt_template.md` でclaudie_designへのコンテキストインジェクションを標準化。
@@ -66,10 +77,11 @@
 | Layer 1/2/3 Protected Areas（AGENTS.md §7） | ✅ 完了（Phase 2） |
 | 検証コマンド（typecheck, lint） | ✅ 完了 |
 | 検証コマンド（test） | ❗ G1 |
-| 検証コマンド（build, CI） | ❗ G5, G6（環境変数依存） |
+| 検証コマンド（build, CI） | ✅ 完了（G5/G6 解消済み） |
 | CI/CD Pipeline（typecheck + lint） | ✅ 完了 |
 | CI/CD Pipeline（security, deploy） | 🟡 Phase 4 以降 |
-| Branch Protection | ❗ G7 |
+| Branch Protection | ✅ 完了（G7 解消済み） |
+| アトミック確認ループ（プレビュー + チェックリスト） | ❗ G9 |
 | 評価プロンプト（evals/） | ✅ 完了（Phase 3） |
 | HARNESS_DECISIONS / HARNESS_HEALTH | ✅ 完了（Phase 3） |
 
