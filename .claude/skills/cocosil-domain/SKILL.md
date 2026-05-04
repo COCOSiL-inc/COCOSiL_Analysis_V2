@@ -148,6 +148,8 @@ package.json（依存関係追加時）
 
 UIコピー・AIプロンプト・エラーメッセージを書く際は `language-design` スキルを参照すること。
 
+> 🔒 **正は `lib/constitution/banned-words.ts`**（Constitution as Code）。本テーブルと文書 `language-design-v1.md` は解説。ドリフト時はコードを正とする。
+
 | 使用禁止 | 代替表現 |
 |---------|---------|
 | 占い | 性格分析 / 自己理解 / パーソナリティ診断 |
