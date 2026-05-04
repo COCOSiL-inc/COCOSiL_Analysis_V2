@@ -3,6 +3,7 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import { BANNED_WORDS } from '@/lib/constitution/banned-words'
 import { UX_SEQUENCE, PHASE_LABELS_JP } from '@/lib/constitution/ux-sequence'
+import { ChatPhase, CHAT_PHASE_TO_UX_PHASE } from '@/lib/types/chat-phase'
 
 const repoRoot = path.resolve(__dirname, '../../..')
 
@@ -49,6 +50,13 @@ describe('Constitution Drift: 文書とコードの整合性検知', () => {
     for (const phase of UX_SEQUENCE) {
       const jp = PHASE_LABELS_JP[phase]
       expect(doc, `AGENTS.md に "${jp}" が見つからない`).toContain(jp)
+    }
+  })
+
+  test('ChatPhase が全て有効な UxPhase にマップされている', () => {
+    for (const phase of Object.values(ChatPhase)) {
+      const uxPhase = CHAT_PHASE_TO_UX_PHASE[phase]
+      expect(UX_SEQUENCE as readonly string[], `ChatPhase '${phase}' のマップ先 '${uxPhase}' が UX_SEQUENCE に存在しない`).toContain(uxPhase)
     }
   })
 })
