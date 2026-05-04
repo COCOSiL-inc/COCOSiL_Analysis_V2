@@ -45,12 +45,29 @@
 ### G1. テストコマンドが未整備
 - **状態：** ❗ 未解消
 - **詳細：** `package.json` に `test` スクリプトなし。Vitest 未導入。CI に `test` ジョブもなし。
-- **影響：** ロジックの正確性は型チェックでしか担保できない。診断計算ロジック（`lib/diagnostics/`）の回帰検出ができない。
-- **対応方針：** 機能実装が始まり、`lib/diagnostics/` で六星占術・動物性格診断の計算が走るタイミングで Vitest を導入する。
-  - `pnpm add -D vitest @vitejs/plugin-react`
-  - `package.json` に `"test": "vitest run"` を追加
-  - `.github/workflows/ci.yml` に `test` ジョブを追加
+- **影響：** ロジックの正確性は型チェックでしか担保できない。診断計算ロジック（`lib/diagnostics/`）の回帰検出ができない。`lib/prompts/` の禁止語彙混入も検知不能。
+- **対応方針（TDDベストプラクティス適用版）：**
+  1. `pnpm add -D vitest @vitejs/plugin-react`
+  2. `package.json` に `"test": "vitest run"` を追加
+  3. `lib/diagnostics/__tests__/` 作成（MBTI境界値・六星占術計算の単体テスト）
+  4. `.github/workflows/ci.yml` に `test` ジョブを追加
+  5. F3実装時に `lib/prompts/__tests__/` を追加（禁止語彙・必須キーワードテスト）
+- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Deterministic First原則）
 - **担当：** ヒラメ（API/構造設計担当）
+
+### G10. プロンプト回帰テストおよびEval未整備
+- **状態：** ❗ 未解消（F3実装開始時に着手）
+- **詳細：** `lib/prompts/` の変更がプロダクト品質に与える影響を自動検知できない。禁止語彙の混入・必須フェーズキーワードの欠落・三毒増幅の発生がPRレビューまで気づけない。
+- **影響：** F3（共感AIチャット）実装後、プロンプトの小変更が「共感→安心→分析→行動」のフロー品質を劣化させても検知不能。ブランドアイデンティティの毀損リスク（禁止語彙混入）。
+- **対応方針（段階的）：**
+  - **Phase 1（F3実装時）：** Vitest文字列テスト
+    ```typescript
+    expect(prompt).not.toContain("占い")  // 禁止語彙
+    expect(prompt).toContain("共感")       // 必須キーワード
+    ```
+  - **Phase 2（Sprint 3以降）：** promptfoo 導入（設計中枢5問をEvalルーブリック化）
+- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Prompt as Code原則 / Design-Center as Rubric原則）
+- **担当：** ヒラメ（実装）・えんまさ（Evalルーブリック内容承認）
 
 ### ~~G2. `lib/prompts/` 未作成~~ ✅ 解消（2026-05-02）
 - **解消内容：** `lib/prompts/` ディレクトリ作成済み。APIルート（`app/api/chat/`・`app/api/report/`）から `@/lib/prompts/` でエイリアス参照できる。
@@ -96,7 +113,9 @@
 | CI/CD Pipeline（typecheck + lint） | ✅ 完了 |
 | CI/CD Pipeline（security, deploy） | 🟡 Phase 4 以降 |
 | Branch Protection | ✅ 完了（G7 解消済み） |
-| アトミック確認ループ（プレビュー + チェックリスト） | ❗ G9 |
+| アトミック確認ループ（プレビュー + チェックリスト） | ❗ G9（PR#11で解消予定） |
+| 単体テスト（lib/diagnostics/ + lib/prompts/） | ❗ G1・G10 |
+| Eval（設計中枢5問ルーブリック化） | 🟡 G10 Phase 2（Sprint 3以降） |
 | 評価プロンプト（evals/） | ✅ 完了（Phase 3） |
 | HARNESS_DECISIONS / HARNESS_HEALTH | ✅ 完了（Phase 3） |
 
