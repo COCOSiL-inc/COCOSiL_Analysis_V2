@@ -7,7 +7,7 @@ author: ヒラメ
 created_at: 2026-05-03
 branch: feature/near-soft-feedback-loop
 related_requirements: docs/output/requirements/cocosil_v2_detailed_requirements_specification.md#411
-related_discussion: docs/discussions/議論ログ_自己進化ループ要件定義.md
+related_discussion: docs/discussions/議論ログ_デジタル生命体移行企画.md
 ---
 
 # NEARフェーズ ソフトフィードバックループ 実装計画
@@ -15,6 +15,10 @@ related_discussion: docs/discussions/議論ログ_自己進化ループ要件定
 > **ステータス**: 計画策定済み・実装待ち
 > **実装フェーズ**: NEAR（Q3〜Q4 2026）
 > **担当**: ヒラメ（バックエンド/APIエンジニア）
+
+> **Autogenesisとの関係**: このプランは Autogenesis Phase B/C の「明示的フィードバック」入力レイヤー。
+> `chat_sessions.mbti_resonance` 等の体系別腑落ちスコアは Autogenesis の Evaluate 層への補助シグナルとして使用される。
+> 暗黙的行動ログ（`events_telemetry`）は別途 Phase A で実装。両者は競合しない。
 
 ---
 

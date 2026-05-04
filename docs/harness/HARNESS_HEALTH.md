@@ -12,6 +12,21 @@
 
 ## ⚠️ 既知の Gap
 
+### G10. Autogenesis Phase A — 行動テレメトリ基盤未整備
+- **状態：** ❗ 未解消
+- **詳細：** COCOSiL V2のデジタル生命体移行計画（`docs/discussions/議論ログ_デジタル生命体移行企画.md`）のPhase A着手に必要な行動テレメトリ基盤がゼロ。具体的に未整備のもの：
+  - `events_telemetry` テーブル（Supabase migration未作成）
+  - PostHogカスタムイベント5種（`chat_phase_transition` / `report_section_reread` / `insight_accept` / `action_specificity_score` / `session_return_7d`）の未実装
+  - 内省スコア算出ロジック（再言語化率・矛盾受容率・行動記録の具体度）の未実装
+- **影響：** Phase B（メモリ基盤）・Phase C（Autogenesisループ）への移行ゲートが「ユーザー50人以上の行動ログ蓄積」であり、本Gapが解消されるまで次のPhaseに進めない。
+- **対応方針（優先順位順）：**
+  1. 🔴 Supabase migration：`events_telemetry(user_id, event_name, payload JSONB, created_at)` テーブル追加
+  2. 🔴 PostHog SDK導入 + 5種カスタムイベントを `app/api/chat/` の各フェーズ遷移点に実装
+  3. 🟡 内省スコア算出の設計（セッション終了時にLLMが判定するか、ルールベースか）
+- **Phase A→B移行ゲート：** ユーザー50人以上の行動ログが蓄積した時点（えんまさが確認）
+- **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §8 / `AGENTS.md` §7 Autogenesis Constitution
+- **担当：** ヒラメ（migration・API実装）・えんまさ（テレメトリ設計の意味判断）
+
 ### G9. アトミック確認ループ未整備
 - **状態：** ❗ 未解消
 - **詳細：** 機能要素（API）の実装完了後に「正しく動くか」「仕様通りか」を人間が確認する経路がない。現在の検証コマンド（typecheck/lint）は静的解析のみで動的検証ゼロ。PRレビュー時にえんまさが仕様確認できる URL が存在しない。

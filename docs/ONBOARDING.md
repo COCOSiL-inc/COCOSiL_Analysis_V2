@@ -30,6 +30,9 @@ audience: [hirame, maami, ai-agent]
 **AIエージェント（パートナーAI）**  
 → 下の「⛔ これだけは守る」を最初に読む。迷ったら `/cocosil-work` を呼ぶ。タスク着手は必ず `/start-task`、完了は `/finish-task`。
 
+**Cursor利用者**  
+→ `.cursor/rules/` に主要ルールが注入済み（`alwaysApply: true`）。スキルはチャットで「〇〇スキルを使って」と呼ぶ。コマンドは「着手する」「完了する」等のトリガーワードで等価動作する（詳細: `.cursor/rules/03-workflow.mdc`）。
+
 ---
 
 ## 設計中枢（Layer 0）— すべての判断の最上位基準
