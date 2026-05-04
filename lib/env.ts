@@ -16,6 +16,9 @@ export const env = clientEnvSchema.parse({
 const serverEnvSchema = z.object({
   // Clerk シークレットキー（認証機能を使用するサーバーコードでのみ呼び出す）
   CLERK_SECRET_KEY: z.string().min(1).optional(),
+  // PostHog（Phase A テレメトリ — 未設定時はイベント送信をスキップ）
+  POSTHOG_API_KEY: z.string().min(1).optional(),
+  POSTHOG_HOST: z.url().optional(),
 });
 
 export function getServerEnv() {
