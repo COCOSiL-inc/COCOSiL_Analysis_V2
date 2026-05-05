@@ -41,7 +41,11 @@
 ### G1. テストコマンドが未整備
 - **状態：** 🟡 部分解消（2026-05-05・整合性ハーネス再設計 Phase 1）
 - **詳細：** Vitest 4.1.5 を導入済み。`package.json` の `test` / `test:watch` スクリプト追加・`vitest.config.ts` 設置・`.github/workflows/ci.yml` に `test` ジョブ追加完了。`lib/prompts/__tests__/` と `lib/constitution/__tests__/` の2スイートが CI で動作。
-- **残作業：** `lib/diagnostics/__tests__/` の MBTI境界値・六星占術計算テストは F2 実装開始前に追加（決定論的ロジック保証）。
+- **残作業：** `lib/diagnostics/__tests__/` の以下テストは F2 実装開始前に追加（決定論的ロジック保証）：
+  - MBTI 境界値テスト
+  - 星座算出テスト（カスプ日・1月19日/3月20日等の境界値） ← F2.1a 要件定義完了（2026-05-05）
+  - 動物性格診断（60アニマル）算出テスト（命数境界値・閏年2/29）← F2.1b 要件定義完了（2026-05-05）
+  - 六星占術算出テスト（12分類・陰陽切り替え境界値） ← F2.1c 要件定義完了（2026-05-05）
 - **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §6c（Deterministic First原則）/ `docs/output/decisions/harness-redesign-proposal-2026-05-05.md` Action 3
 - **担当：** ヒラメ（API/構造設計担当）
 
