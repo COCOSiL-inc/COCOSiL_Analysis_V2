@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { calculateMbtiResult, isValidMbtiType } from "@/app/diagnosis/mbti/logic";
 import { MBTI_QUESTIONS } from "@/app/diagnosis/mbti/questions";
-import { getRepository } from "@/lib/db";
+import { getSupabaseClient } from "@/utils/supabase/client";
 import { getPostHogClient } from "@/lib/telemetry/client";
 import type {
   DiagnosisResponse,
   LikertValue,
   MbtiAnswer,
 } from "@/app/diagnosis/mbti/types";
+import type { Json, TablesInsert } from "@/lib/types/database";
 
 /**
  * POST /api/diagnosis/mbti
@@ -55,6 +56,7 @@ export async function POST(request: Request) {
         );
       }
 
+      // バリデーション
       for (const a of answers) {
         if (
           typeof a.questionId !== "number" ||
@@ -75,15 +77,23 @@ export async function POST(request: Request) {
       result = calculateMbtiResult(answers as { questionId: number; value: LikertValue }[]);
     }
 
-    // ---- DB に保存（ローカル=SQLite / 本番=Supabase） ----
-    const dbResult = await getRepository().insertMbtiResult({
+    // ---- Supabase に保存 ----
+    const supabase = getSupabaseClient();
+    const insertRow: TablesInsert<"mbti_results"> = {
       mbti_type: result.mbtiType,
-      scores: result.scores as unknown as Record<string, number>,
-      pci: result.pci as unknown as Record<string, number>,
-      answers: body.answers ?? null,
-    });
+      scores: result.scores as unknown as Json,
+      pci: result.pci as unknown as Json,
+      answers: (body.answers as unknown as Json) ?? null,
+    };
+    const { data: dbResult, error: dbError } = await supabase
+      .from("mbti_results")
+      .insert(insertRow)
+      .select("id")
+      .single();
 
-    if (dbResult) {
+    if (dbError) {
+      console.error("Supabase insert error:", dbError);
+    } else if (dbResult) {
       result.id = dbResult.id;
     }
 
