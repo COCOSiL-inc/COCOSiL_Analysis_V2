@@ -1,0 +1,51 @@
+{
+  "skill_name": "spec-sync",
+  "_note": "COCOSiL仕様変更伝播スキルの評価ケース。P1（哲学更新）・P3（UXシーケンス変更）・P5（API/DB設計変更）の3パターンをカバー。正しい影響先列挙・Layer判定・承認者明示ができるかをテストする。",
+  "evals": [
+    {
+      "id": 1,
+      "pattern": "P1",
+      "prompt": "docs/input/concepts/COCOSiL設計中枢.md に新しい設計原則「④ Data for Decisions — データは判断のために」を追加しました。spec-sync してください。",
+      "expected_output": "P1（哲学更新）として分類。必須更新: AGENTS.md §0（Layer 2・えんまさ承認）、cocosil-domain/SKILL.md（Layer 2・えんまさ承認）、.cursor/rules/00-core-philosophy.mdc（Layer 2・えんまさ承認）。推奨更新: docs/output/requirements/の設計原則セクション（Layer 3）。不変確認: lib/constitution/immutables.tsとの整合性確認を促す。",
+      "files": [],
+      "expectations": [
+        "P1（哲学更新）として正しく分類している",
+        "AGENTS.md §0 が必須更新対象として挙がっている",
+        "cocosil-domain/SKILL.md が必須更新対象として挙がっている",
+        "Layer 2ファイルに対して「えんまさ承認後に実行」の指示がある",
+        "Layer 1ファイル（supabase/migrations等）が対象に含まれていない",
+        "「更新不要」ファイルも明示されている（例: lib/prompts/ は今回関係ない）"
+      ]
+    },
+    {
+      "id": 2,
+      "pattern": "P3",
+      "prompt": "UXシーケンスを「共感→安心→分析→行動」から「共感→観察→安心→分析→行動」に変更します（「観察」フェーズを追加）。spec-sync してください。",
+      "expected_output": "P3（UXシーケンス変更）として分類。PMF仮説への影響警告を出す。必須更新: AGENTS.md §0（Layer 2・えんまさ承認）、cocosil-domain/SKILL.md（Layer 2・えんまさ承認）、.cursor/rules/00-core-philosophy.mdc（Layer 2・えんまさ承認）。lib/constitution/ux-sequence.ts が存在する場合はコードも更新対象に。lib/prompts/ への影響を推奨更新として挙げる。expert-misaki-discussion で意図を議論することを推奨する。",
+      "files": [],
+      "expectations": [
+        "P3（UXシーケンス変更）として正しく分類している",
+        "PMF仮説（7日再訪率30%）への影響リスクを警告している",
+        "expert-misaki-discussion での議論を推奨している",
+        "lib/prompts/** がLayer 2更新対象として挙がっている（フェーズ名参照があるため）",
+        "AGENTS.md §0 が必須更新対象として挙がっている",
+        "UXシーケンスの順序変更を禁止（Constitution扱い）として警告している"
+      ]
+    },
+    {
+      "id": 3,
+      "pattern": "P5",
+      "prompt": "Supabaseに user_insights テーブルを新規追加し、app/api/insights/ エンドポイントを作成しました。spec-sync してください。",
+      "expected_output": "P5（API/DB設計変更）として分類。前置チェックとして security-sensitive-change-review の実行を促す。pnpm db:types の再実行を指示。必須更新: 要件定義書のAPI仕様セクション（Layer 3）、HARNESS_HEALTH.md（Layer 3）。Layer 1警告: supabase/migrations/ はAIが触れないことを明示。推奨更新: AGENTS.md §3の技術スタック記述（新テーブルの役割）。",
+      "files": [],
+      "expectations": [
+        "P5（API/DB設計変更）として正しく分類している",
+        "security-sensitive-change-review の先行実行を促している",
+        "supabase/migrations/ がLayer 1保護対象として警告されている",
+        "pnpm db:types の再実行が必須アクションとして挙がっている",
+        "要件定義書（docs/output/requirements/）が必須更新対象として挙がっている",
+        "lib/types/database.ts の手動編集禁止（pnpm db:typesで自動生成）が明記されている"
+      ]
+    }
+  ]
+}
