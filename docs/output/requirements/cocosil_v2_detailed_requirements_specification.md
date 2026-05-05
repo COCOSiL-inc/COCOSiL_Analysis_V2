@@ -444,12 +444,16 @@ share_cards       — シェアカード生成履歴
 analytics_events  — PMF KPI計測用イベントログ
 ```
 
-### 6.3 OpenAI（共感AIチャット・レポート生成）
+### 6.3 Vercel AI SDK + OpenAI（共感AIチャット・レポート生成）
+
+> **2026-05-05 技術選定確定**：当初「OpenAI Agent Builder」として仮置きしていたが、議論ログ（`docs/discussions/議論ログ_AIチャット技術スタック選定.md`）による検討の結果、**Vercel AI SDK + OpenAI Chat Completions API** に確定。Dify・OpenAI Assistants APIはいずれも不採用（理由は議論ログ参照）。
 
 - **用途**: 5フェーズ共感AIチャット、統合レポートコンテンツ生成、シェアカードタイプ名生成
-- **連携方式**: Next.js API Routes（サーバーサイド）から `openai` Node SDK で呼び出し。APIキーはサーバー専用
-- **プロンプト設計**: えんまさが意味設計レイヤーで担当。`lib/prompts/` 配下に配置（Protected Areas Layer 2）
-- **コスト**: (仮定) 月額 $50〜200（MAU規模・1ユーザーあたりチャット頻度による）
+- **連携方式**: `ai` + `@ai-sdk/openai` パッケージ。`streamText()` + Edge Runtimeでストリーミング応答。APIキーはサーバー専用（`getServerEnv()` 経由）
+- **フェーズ管理**: セッション状態（`ChatPhase`）はSupabase `chat_sessions.phase` に永続化。クライアント側にフェーズ状態を持たせない
+- **マルチLLM切り替え**: Vercel AI SDKの統一コネクター（`@ai-sdk/openai` / `@ai-sdk/anthropic` / `@ai-sdk/google`）で1行切り替え可能
+- **プロンプト設計**: えんまさが意味設計レイヤーで担当。`lib/prompts/` 配下にTypeScriptで配置（Protected Areas Layer 2）。GUIツールによる管理は禁止
+- **コスト**: (仮定) 月額 $50〜200（MAU規模・1ユーザーあたりチャット頻度による）。Vercel AI SDK自体は無料
 - **制約**: 課金枠上限に達した場合の切り替え基準を事前決定
 
 ### 6.4 Gamma API（統合レポート整形）
@@ -488,7 +492,7 @@ analytics_events  — PMF KPI計測用イベントログ
 | バックエンド | **Next.js 16 API Routes** | フロントと同一プロジェクト、ヒラメ単独でAPIファーストに集中可能 |
 | データ永続化 | **Supabase（PostgreSQL + RLS）** | 認可をDB層で担保、型自動生成、無料枠でMVP規模を満たす |
 | 認証 | **Clerk** | サインアップ30秒以内、SNS認証統合、Next.js公式統合、Stripe公式連携 |
-| AI / チャット | **OpenAI（Agent Builder含む）** | 5フェーズプロンプト×性格分析コンテキスト注入、日本語品質最高水準 |
+| AI / チャット | **Vercel AI SDK (`ai`) + OpenAI Chat Completions API** | `streamText()` + Edge Runtimeでストリーミング。フェーズ遷移はアプリ側で管理。マルチLLM切り替えは統一コネクター（`@ai-sdk/openai` / `@ai-sdk/anthropic`等）で対応 |
 | AI / レポート | **Gamma API** | 構造化レポートを自動生成。フォールバックはMarkdown+CSS |
 | 決済 | **Stripe** | Clerk公式パートナー、プロレーション自動、Billing Portal自己管理、test_mode法人化対応 |
 | 言語 | **TypeScript 5 + Zod（`zod/v4`）** | API型安全性、AGENTS.md準拠 |
