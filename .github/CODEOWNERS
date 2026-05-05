@@ -25,6 +25,7 @@ app/globals.css         @maami415
 # 意味設計（えんまさ担当）
 lib/prompts/            @MasakiEndo44
 lib/data/               @MasakiEndo44
+lib/constitution/       @MasakiEndo44
 docs/language/          @MasakiEndo44
 
 # 共通基盤・ハーネス（えんまさレビュー）
