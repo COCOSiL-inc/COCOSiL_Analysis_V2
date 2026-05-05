@@ -37,9 +37,6 @@ yarn-error.log*
 # supabase local dev data
 .supabase/
 
-# SQLite local dev database
-dev.db
-
 # claude code (personal settings)
 .claude/settings.local.json
 
