@@ -5,7 +5,7 @@
 
 | 項目 | 値 |
 |---|---|
-| 最終更新 | 2026-05-04 |
+| 最終更新 | 2026-05-05 |
 | 次回レビュー | 2026-06-02（月次） |
 
 ---
@@ -27,16 +27,12 @@
 - **設計根拠：** `docs/harness/HARNESS_DECISIONS.md` §8 / `AGENTS.md` §7 Autogenesis Constitution
 - **担当：** ヒラメ（migration・API実装）・えんまさ（テレメトリ設計の意味判断）
 
-### G9. アトミック確認ループ未整備
-- **状態：** ❗ 未解消
-- **詳細：** 機能要素（API）の実装完了後に「正しく動くか」「仕様通りか」を人間が確認する経路がない。現在の検証コマンド（typecheck/lint）は静的解析のみで動的検証ゼロ。PRレビュー時にえんまさが仕様確認できる URL が存在しない。
-- **影響：** 本番環境で初めて動作確認することになり、手戻りコストが実装コストの2倍以上になるリスク（議論ログ参照：Feature 8本中6本が破綻した事例）。
-- **対応方針（優先順位順）：**
-  1. 🔴 `.github/workflows/preview.yml` 作成（PR → Vercelプレビュー URL 自動生成）
-  2. 🔴 `.github/PULL_REQUEST_TEMPLATE.md` 作成（えんまさ確認チェックリスト3項目埋め込み）
-  3. 🟡 Vitest 導入 + `lib/diagnostics/` の unit test（F2実装開始前、G1 と統合）
-- **設計根拠：** `docs/discussions/議論ログ_アトミック確認ループ設計.md` 参照
-- **担当：** ヒラメ（実装）・えんまさ（承認）
+### ~~G9. アトミック確認ループ未整備~~ ✅ 解消（2026-05-05）
+- **解消内容：**
+  1. ✅ `.github/workflows/preview.yml` 作成（PR → Vercel プレビュー URL 自動生成・Gate 2 確認リンク付きコメントを PR に自動投稿）
+  2. ✅ `.github/pull_request_template.md` 作成・更新（Gate 1 ヒラメ署名 + Gate 2 えんまさ確認チェックリスト + before/after サンプル欄）
+- **残作業：** Vitest 導入 + `lib/diagnostics/` の unit test（G1 残作業として追跡）
+- **設計根拠：** `docs/discussions/議論ログ_アトミック確認ループ設計.md` / `docs/output/decisions/harness-redesign-v2-2026-05-05.md`
 
 ### ~~G8. まあみ claude_design フロー未定義~~ ✅ 解消（2026-05-03）
 - **解消内容：** `docs/harness/DESIGN_FLOW.md` を新規作成。Gate 1（Coherence）→ Gate 2（Compatibility）→ Gate 3（Fidelity）の3段階ゲートを定義。`docs/input/setup/claude_design_prompt_template.md` でclaudie_designへのコンテキストインジェクションを標準化。
@@ -112,7 +108,7 @@
 | CI/CD Pipeline（typecheck + lint + test） | ✅ 完了（test ジョブ追加 2026-05-05） |
 | CI/CD Pipeline（security, deploy） | 🟡 Phase 4 以降 |
 | Branch Protection | ✅ 完了（G7 解消済み） |
-| アトミック確認ループ（プレビュー + チェックリスト） | ❗ G9（PR#11で解消予定） |
+| アトミック確認ループ（プレビュー + チェックリスト） | ✅ 完了（G9 解消 2026-05-05） |
 | 単体テスト（lib/prompts/） | ✅ 完了（G10 部分解消・禁止語彙テスト） |
 | 単体テスト（lib/diagnostics/） | ❗ G1 残作業（F2実装前） |
 | Constitution as Code（lib/constitution/） | ✅ 完了（G12 解消 2026-05-05） |
