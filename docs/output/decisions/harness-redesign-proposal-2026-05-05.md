@@ -4,9 +4,10 @@ title: COCOSiL V2 整合性ハーネス再設計提案（2026-05-05）
 doc_type: decision
 product: cocosil
 layer: design
-status: proposal
+status: approved
 proposed_by: endo
 proposed_at: 2026-05-05
+approved_at: 2026-05-05
 as_of: 2026-05-05
 ---
 
@@ -15,7 +16,7 @@ as_of: 2026-05-05
 **作成日**: 2026-05-05
 **根拠議論ログ**: `docs/discussions/議論ログ_設計整合性ハーネス再設計.md`
 **整合性レポート**: `docs/output/decisions/coherence-report-2026-05-05.md`
-**ステータス**: 提案（えんまさのレビュー待ち）
+**ステータス**: 承認済み（2026-05-05）— Week 1 Phase 1-2 プロンプト実装と合わせて承認
 
 ---
 
