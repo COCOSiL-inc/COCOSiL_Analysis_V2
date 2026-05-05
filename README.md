@@ -3,7 +3,9 @@
 「自分を知って、ラクになる」  
 共感AIチャット × 4体系パーソナリティ分析で、対人関係の繰り返しの消耗を解消する。
 
-![COCOSiL プロダクト説明](docs/output/requirements/cocosil-product-explanation.png)
+![COCOSiL コンセプトカード WHY](docs/output/requirements/cocosil-concept-01-why.png)
+![COCOSiL コンセプトカード HOW](docs/output/requirements/cocosil-concept-02-how.png)
+![COCOSiL コンセプトカード SO WHAT](docs/output/requirements/cocosil-concept-03-so-what.png)
 
 > **ミッション：** 東洋哲学が2500年追求した「自己認識による解放」をAIで民主化する。  
 > **ターゲット：** 25-35歳の若手社会人。職場・恋愛・家族との関係で繰り返し消耗している層。  
