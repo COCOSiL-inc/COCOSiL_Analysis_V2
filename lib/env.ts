@@ -1,8 +1,9 @@
 import { z } from 'zod/v4';
 
 const clientEnvSchema = z.object({
-  NEXT_PUBLIC_SUPABASE_URL: z.url().startsWith('https://'),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+  // 本番（Supabase）のみ必須。ローカルは SQLite を使うため未設定でよい
+  NEXT_PUBLIC_SUPABASE_URL: z.url().startsWith("https://").optional(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1).optional(),
   // Clerk キーは .env.local に設定してから認証機能が有効になる
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1).optional(),
   // PostHog クライアントサイドキー（posthog-js 用）
