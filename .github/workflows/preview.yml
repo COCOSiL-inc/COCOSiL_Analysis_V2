@@ -35,6 +35,8 @@ jobs:
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          # ビルド時は Supabase/Clerk 等の env が不要なためバリデーションをスキップ
+          SKIP_ENV_VALIDATION: "1"
 
       - name: Deploy to Vercel
         id: deploy
