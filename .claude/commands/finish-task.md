@@ -17,6 +17,49 @@ git diff --stat HEAD
 
 ---
 
+## Step 1.5: TSK ファイル鮮度チェック
+
+> 手動実装・AI実装問わず、PR作成前にTSKファイルの存在と鮮度を確認する。  
+> 参照: `docs/TASK-INDEX.md` / `docs/output/tasks/`
+
+現在のブランチ名からIssue番号を推定する（例: `feature/27-db-schema-cleanup` → `#27`）。
+
+```bash
+ls docs/output/tasks/ 2>/dev/null | grep -i "TSK-" | head -20
+```
+
+**Issue番号が推定できた場合 — `docs/output/tasks/` 内でIssue番号に対応するTSKファイルを検索:**
+
+- **TSKファイルが存在しない場合**:
+  ```
+  ⚠️ TSKファイルが見つかりません（Issue #<番号> または対応TSKなし）。
+  → docs/output/tasks/TSK-[分類]-NNN-<slug>.md を作成しますか？（y/n）
+  → y: _TEMPLATE.md ベースで生成（手動実装のキャッチアップ用）
+  → n: 「TASKなし」として Step 2 へ進む（PR template の「TASKなし」にチェック）
+  ```
+
+- **TSKファイルが存在する場合**:
+  1. front-matter の `status` フィールドを確認
+  2. 「実装状況（更新ログ）」セクションが当該PRの変更内容を反映しているか確認を促す:
+     ```
+     📋 TSKファイル: docs/output/tasks/<ファイル名>
+     現在のstatus: <planned/in-progress/review/done>
+     
+     実装状況を更新しましたか？
+     → status を「review」に変更しましたか？（PR作成前の推奨）
+     → 実装状況ログに今回の変更内容を追記しましたか？
+     ```
+  3. `docs/TASK-INDEX.md` の該当行のフェーズ更新を促す（🟡実装中 → 🔴レビュー中）
+
+**Issue番号が不明な場合 / docsのみ変更の場合:**
+
+```
+対応するTSKファイルはありますか？
+→ TSKファイル名を入力 / 「TASKなし」でスキップ
+```
+
+---
+
 ## Step 2: 品質チェック
 
 順番に実行し、**どちらかが失敗したら中断して修正を促す**:
@@ -114,6 +157,11 @@ gh pr create \
 ## 担当ガード確認
 - [ ] 変更ファイルが自分の担当レイヤーの範囲内であること
 - [ ] UIコピー・AIプロンプトを含む場合は /language-design を確認済み
+
+## TASK 紐づけ
+- TSK ファイル: `docs/output/tasks/<TSK-[分類]-[番号3桁]-slug>.md`（または「TASKなし」）
+- 対応 Issue: #<番号>（または「なし」）
+- TASK-INDEX.md 行フェーズ: 🔴 レビュー中（または「更新不要」）
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
