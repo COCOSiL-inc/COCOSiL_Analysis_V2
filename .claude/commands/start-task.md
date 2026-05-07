@@ -111,6 +111,49 @@ Should条件（Q<N>）を満たしていません。
 
 ---
 
+## Step 2.6: GitHub Issue ↔ TSK ファイル紐づけ
+
+> TSK ID形式: `TSK-[分類]-[番号3桁]`（分類: DB/UI/API/PROMPT/DOCS/CHORE）  
+> 参照: `docs/TASK-INDEX.md` / `docs/output/tasks/`
+
+**タスク説明にIssue番号（例: `#27`）が含まれる場合:**
+
+```bash
+gh issue view <番号>
+```
+
+Issue内容を表示し、`docs/output/tasks/` 配下に対応するTSKファイル（`TSK-*-<番号>*.md` または `TSK-[分類]-NNN-*.md`）が存在するかチェックする。
+
+- **存在する** → TSKファイルパスをStep 5の着手レポートに記載
+- **存在しない** → 以下を提示して確認:
+  ```
+  ⚠️ TSKファイルが見つかりません。
+  → docs/output/tasks/ に TSK-[分類]-NNN-<slug>.md を作成しますか？（y/n）
+  → 分類: DB/UI/API/PROMPT/DOCS/CHORE から選択
+  → y の場合: _TEMPLATE.md ベースで生成し、Issue番号・ブランチ名・参照要件を埋める
+  ```
+
+**タスク説明にIssue番号がない場合:**
+
+```bash
+gh issue list --limit 10 --state open
+```
+
+未着手Issueを表示し、以下を確認:
+
+```
+対応するIssue番号は？
+  番号を入力（例: 27）/ 「新規作成」 / 「スキップ」
+```
+
+- **番号入力** → 上記「Issue番号あり」の処理へ
+- **「新規作成」** → タイトル・本文・ラベルを提案して `gh issue create` 実行（ユーザー確認後）
+- **「スキップ」** → Step 3 へ進む（Issueなしの小修正・docs作業等）
+
+**ブランチ名（Step 3）にはIssue番号を反映する**: `feature/<番号>-<slug>` 形式
+
+---
+
 ## Step 3: ブランチ名の提案（1回のみ確認）
 
 タスクの内容と変更予定ファイルから、以下の命名規則に基づいてブランチ名を1つ推論する:

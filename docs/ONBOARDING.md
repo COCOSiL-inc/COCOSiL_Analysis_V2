@@ -21,11 +21,13 @@ audience: [hirame, maami, ai-agent]
 ## あなたへのナビ（最初にここを読む）
 
 **ヒラメ（バックエンド）**  
-→ あなたの主戦場は `app/api/**` と `supabase/`。最初にやること: `pnpm db:types` で型を生成してから `/start-task <タスク名>` でブランチを切る。
+→ あなたの主戦場は `app/api/**` と `supabase/`。最初にやること: `pnpm db:types` で型を生成してから `/start-task #<Issue番号>` でブランチを切る。  
+→ 今の担当タスク一覧: [docs/TASK-INDEX.md](TASK-INDEX.md) の「ヒラメ」列を確認。
 
 **まあみ（フロントエンド）**  
 → あなたの主戦場は `app/**`・`components/**`。最初にやること: `pnpm install` → `pnpm dev` で開発サーバーを起動し、`http://localhost:3000` を確認する。  
-→ UIを作るときは [docs/harness/DESIGN_FLOW.md](harness/DESIGN_FLOW.md) に従う。**まあみがやること: 案の選定と目視確認だけ。** それ以外はAIパートナーが実行する。
+→ UIを作るときは [docs/harness/DESIGN_FLOW.md](harness/DESIGN_FLOW.md) に従う。**まあみがやること: 案の選定と目視確認だけ。** それ以外はAIパートナーが実行する。  
+→ 今の担当タスク一覧: [docs/TASK-INDEX.md](TASK-INDEX.md) の「まあみ」列を確認。
 
 **AIエージェント（パートナーAI）**  
 → 下の「⛔ これだけは守る」を最初に読む。迷ったら `/cocosil-work` を呼ぶ。タスク着手は必ず `/start-task`、完了は `/finish-task`。
@@ -146,9 +148,17 @@ cp .env.example .env.local
 pnpm dev
 # → http://localhost:3000 で確認
 
-# 4. 最初のタスクを始めるとき
-/start-task <タスクの説明>
-# → ブランチ名が提案される → y で確定 → 作業開始
+# 4. 自分の担当タスクを確認
+# → docs/TASK-INDEX.md を開いて自分の名前の行を探す
+# → 「🟡実装中」行のTSKファイルを開いて「参照ドキュメント」セクションを確認
+
+# 5. タスクを始めるとき（Issue番号が分かっている場合）
+/start-task #27
+# → 設計中枢チェック → Issue/TSK紐づけ確認 → ブランチ提案 → 作業開始
+
+# タスクの説明から始める場合
+/start-task DB構造の整理
+# → 同上（途中でIssue番号の確認が入る）
 ```
 
 ---
@@ -157,10 +167,13 @@ pnpm dev
 
 | 困りごと | 使うスキル / 場所 |
 |---|---|
-| タスクを始めたい | `/start-task <タスク名>`（設計中枢の5問チェックが自動実行される） |
+| **自分の今のタスクに必要な文書を探したい** | [`docs/TASK-INDEX.md`](TASK-INDEX.md) — 機能×フェーズ×TSKファイルのマトリクス |
+| **F\<N\>の要件を確認したい** | [`docs/output/requirements/cocosil_v2_detailed_requirements_specification.md`](output/requirements/cocosil_v2_detailed_requirements_specification.md) §4.\<N\> |
+| **TSKファイルの書き方が分からない** | [`docs/output/tasks/_TEMPLATE.md`](output/tasks/_TEMPLATE.md) |
+| タスクを始めたい | `/start-task #<Issue番号> または <タスク説明>`（設計中枢チェック + Issue/TSK紐づけが自動実行） |
 | 実装中に「これCOCOSiLらしいか？」迷った | `/cocosil-work`（設計3原則・担当ガード・UXシーケンスを再確認） |
 | UIコピー・AIプロンプトを書く前 | `/language-design`（禁止語チェック） |
-| タスク完了・PRを出したい | `/finish-task` |
+| タスク完了・PRを出したい | `/finish-task`（TSKファイル鮮度チェックが自動実行） |
 | 複数視点でブレストしたい | `/expert-misaki-discussion` |
 | 認証・DB・APIルート変更の前 | `/security-sensitive-change-review` |
 | プロダクト哲学の詳細を確認したい | [`AGENTS.md`](../AGENTS.md) セクション 0〜2 |
