@@ -333,6 +333,7 @@ Autogenesisが生成した改善案は以下の3ゲートを通過後にのみco
 | 実装前のゴール確認（単一機能・タスク） | `/goal-grill` | Vision / Outcome / Eval の 3 層。成果物: `docs/output/goals/<slug>.md` |
 | 全機能のシステム要件定義・PRD | `/requirements-doc-creator` | Stage 1 → レビュー → Stage 2 の 2 段階。goal-grill より重厚 |
 | 認証・DB migration・API route 変更時 | `/security-sensitive-change-review` | **必須**。RLS・Clerk・env var の変更を含む |
+| TASK-INDEXのタスクに対してIssueとTSKファイルを生成 | `/task-issue-generator` | 要件定義書を読んでから生成。単独呼び出し or `/start-task` Step 2.6 から自動呼び出し |
 | スキル自体の出力がイマイチだった・改善したい | `/skill-improver` | スキル使用後の不満・改善要望に使う |
 
 ### トリガーワード早見
@@ -342,4 +343,5 @@ Autogenesisが生成した改善案は以下の3ゲートを通過後にのみco
 - `「議論して」「ブレストして」「複数視点で」` → `/expert-misaki-discussion`
 - `「要件定義」「仕様書」「Requirements」` → `/requirements-doc-creator`
 - `「目標を詰めたい」「ゴールが曖昧」「受け入れ基準がない」` → `/goal-grill`
+- `「Issue生成」「TSKを作って」「チケット起票」「--all」` → `/task-issue-generator`
 - `「このスキルを改善したい」「出力が期待と違った」` → `/skill-improver`

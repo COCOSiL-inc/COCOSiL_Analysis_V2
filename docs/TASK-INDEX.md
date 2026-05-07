@@ -38,8 +38,8 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| TSK-UI-002 | F1 ウェルカム対話UIコンポーネント | まあみ | 未着手 | — | — | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| TSK-API-001 | F1 オンボーディングAPI | ヒラメ | 未着手 | — | — | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-002** | F1 ウェルカム対話UIコンポーネント | まあみ | 🔵 設計中 | [#32](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/32) | [TSK-UI-002-f1-welcome-ui.md](output/tasks/TSK-UI-002-f1-welcome-ui.md) | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-001** | F1 オンボーディングAPI | ヒラメ | 🔵 設計中 | [#33](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/33) | [TSK-API-001-f1-onboarding-api.md](output/tasks/TSK-API-001-f1-onboarding-api.md) | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -56,9 +56,9 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F3 統合レポートUI | まあみ | 未着手 | — | — | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F3 Gammaレポート生成API | ヒラメ | 未着手 | — | — | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F3 統合レポートプロンプト | えんまさ | 未着手 | — | — | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-003** | F3 統合レポートUI | まあみ | 🔵 設計中 | [#34](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/34) | [TSK-UI-003-f3-report-ui.md](output/tasks/TSK-UI-003-f3-report-ui.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-002** | F3 Vercel OGレポート生成API | ヒラメ | 🔵 設計中 | [#35](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/35) | [TSK-API-002-f3-report-api.md](output/tasks/TSK-API-002-f3-report-api.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-PROMPT-001** | F3 統合レポートプロンプト | えんまさ | 🔵 設計中 | [#36](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/36) | [TSK-PROMPT-001-f3-report-prompt.md](output/tasks/TSK-PROMPT-001-f3-report-prompt.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -66,9 +66,9 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F4 チャットUIコンポーネント | まあみ | 未着手 | — | — | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F4 チャットAPIルート | ヒラメ | 未着手 | — | — | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F4 5フェーズ共感プロンプト | えんまさ | 未着手 | — | — | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-004** | F4 チャットUIコンポーネント | まあみ | 🔵 設計中 | [#37](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/37) | [TSK-UI-004-f4-chat-ui.md](output/tasks/TSK-UI-004-f4-chat-ui.md) | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-003** | F4 チャットAPIルート | ヒラメ | 🔵 設計中 | [#38](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/38) | [TSK-API-003-f4-chat-api.md](output/tasks/TSK-API-003-f4-chat-api.md) | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-PROMPT-002** | F4 5フェーズ共感プロンプト | えんまさ | 🔵 設計中 | [#39](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/39) | [TSK-PROMPT-002-f4-chat-prompt.md](output/tasks/TSK-PROMPT-002-f4-chat-prompt.md) | [§4.4](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -76,8 +76,8 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F5 アクション記録UI | まあみ | 未着手 | — | — | [§4.5](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F5 アクション記録API | ヒラメ | 未着手 | — | — | [§4.5](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-005** | F5 アクション記録UI | まあみ | 🔵 設計中 | [#40](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/40) | [TSK-UI-005-f5-action-ui.md](output/tasks/TSK-UI-005-f5-action-ui.md) | [§4.5](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-004** | F5 アクション記録API | ヒラメ | 🔵 設計中 | [#41](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/41) | [TSK-API-004-f5-action-api.md](output/tasks/TSK-API-004-f5-action-api.md) | [§4.5](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -85,7 +85,7 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F6 シェアカード生成UI | まあみ | 未着手 | — | — | [§4.6](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-006** | F6 シェアカード生成UI | まあみ | 🔵 設計中 | [#42](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/42) | [TSK-UI-006-f6-share-card-ui.md](output/tasks/TSK-UI-006-f6-share-card-ui.md) | [§4.6](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -93,8 +93,8 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F7 Stripe統合API | ヒラメ | 未着手 | — | — | [§4.7](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| — | F7 課金UIコンポーネント | まあみ | 未着手 | — | — | [§4.7](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-005** | F7 Stripe統合API | ヒラメ | 🔵 設計中 | [#43](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/43) | [TSK-API-005-f7-stripe-api.md](output/tasks/TSK-API-005-f7-stripe-api.md) | [§4.7](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-007** | F7 課金UIコンポーネント | まあみ | 🔵 設計中 | [#44](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/44) | [TSK-UI-007-f7-billing-ui.md](output/tasks/TSK-UI-007-f7-billing-ui.md) | [§4.7](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -102,7 +102,7 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| — | F8 データエクスポート/削除API | ヒラメ | 未着手 | — | — | [§4.8](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-006** | F8 データエクスポート/削除API | ヒラメ | 🔵 設計中 | [#45](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/45) | [TSK-API-006-f8-data-export-delete-api.md](output/tasks/TSK-API-006-f8-data-export-delete-api.md) | [§4.8](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
