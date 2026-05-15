@@ -85,16 +85,12 @@ export async function POST(request: Request) {
       pci: result.pci as unknown as Json,
       answers: (body.answers as unknown as Json) ?? null,
     };
-    const { data: dbResult, error: dbError } = await supabase
+    const { error: dbError } = await supabase
       .from("mbti_results")
-      .insert(insertRow)
-      .select("id")
-      .single();
+      .insert(insertRow);
 
     if (dbError) {
       console.error("Supabase insert error:", dbError);
-    } else if (dbResult) {
-      result.id = dbResult.id;
     }
 
     const phClient = getPostHogClient();
