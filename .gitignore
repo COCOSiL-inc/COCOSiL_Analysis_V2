@@ -39,6 +39,7 @@ yarn-error.log*
 
 # claude code (personal settings)
 .claude/settings.local.json
+.claude/skill-shipper-config.yaml
 
 # vercel
 .vercel

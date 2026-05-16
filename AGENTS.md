@@ -331,10 +331,13 @@ Autogenesisが生成した改善案は以下の3ゲートを通過後にのみco
 | COCOSiLのドメイン判断（UXシーケンス・担当境界・4体系）が必要 | `/cocosil-domain` | 実装前の「COCOSiLらしいか」確認にも使う |
 | 議論・ブレスト・複数視点での検討 | `/expert-misaki-discussion` | 「議論して」「ブレストして」「複数視点で」が目安 |
 | 実装前のゴール確認（単一機能・タスク） | `/goal-grill` | Vision / Outcome / Eval の 3 層。成果物: `docs/output/goals/<slug>.md` |
+| プロダクト要件を Vision→EngSpec まで段階的に深掘り | `/requirements-grill` | V→O→C→F→E→S の 6 層。`docs/requirements/<product>/` に書き出し、`docs/sandbox/<member>/grill-sessions/` で resume 可。goal-grill より広範、requirements-doc-creator より対話的 |
 | 全機能のシステム要件定義・PRD | `/requirements-doc-creator` | Stage 1 → レビュー → Stage 2 の 2 段階。goal-grill より重厚 |
 | 認証・DB migration・API route 変更時 | `/security-sensitive-change-review` | **必須**。RLS・Clerk・env var の変更を含む |
 | TASK-INDEXのタスクに対してIssueとTSKファイルを生成 | `/task-issue-generator` | 要件定義書を読んでから生成。単独呼び出し or `/start-task` Step 2.6 から自動呼び出し |
 | スキル自体の出力がイマイチだった・改善したい | `/skill-improver` | スキル使用後の不満・改善要望に使う |
+| 新しい skill を作る / 既存 skill を改善・eval する | `/skill-creator` | Anthropic 公式 fork。雛形生成・description 最適化・benchmark 計測 |
+| skill を中央 hub に publish / install / update | `/skill-shipper` | 中央 hub: `cocosil-standard-skills`。設定: `.claude/skill-shipper-config.yaml` |
 
 ### トリガーワード早見
 
@@ -342,6 +345,9 @@ Autogenesisが生成した改善案は以下の3ゲートを通過後にのみco
 - `「完了」「PR出す」「コミットする」` → `/finish-task`
 - `「議論して」「ブレストして」「複数視点で」` → `/expert-misaki-discussion`
 - `「要件定義」「仕様書」「Requirements」` → `/requirements-doc-creator`
+- `「要件をグリる」「Vision/Outcome/Capability から詰める」「6 層に分解」` → `/requirements-grill`
 - `「目標を詰めたい」「ゴールが曖昧」「受け入れ基準がない」` → `/goal-grill`
 - `「Issue生成」「TSKを作って」「チケット起票」「--all」` → `/task-issue-generator`
 - `「このスキルを改善したい」「出力が期待と違った」` → `/skill-improver`
+- `「新しい skill を作る」「skill を benchmark」「skill description 最適化」` → `/skill-creator`
+- `「skill を publish / install / update」「中央 hub に上げる」「skill version」` → `/skill-shipper`

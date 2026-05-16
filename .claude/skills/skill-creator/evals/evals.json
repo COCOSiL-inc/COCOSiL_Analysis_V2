@@ -1,0 +1,37 @@
+{
+  "_comment": "skill-creator trigger-detection seed scenarios. Used by /benchmark-skill for this hub.",
+  "_status": "placeholder-v0.1.0",
+  "_note": "Functional eval harness lives in scripts/run_eval.py and scripts/run_loop.py upstream; this file is the hub-level trigger smoke test only.",
+  "scenarios": [
+    {
+      "id": "create-from-scratch",
+      "input": "新しい skill を 0 から作りたい",
+      "expected_skill": "skill-creator",
+      "expected_mode": "create"
+    },
+    {
+      "id": "improve-existing",
+      "input": "既存の skill を改善したい。test prompt を回して評価して",
+      "expected_skill": "skill-creator",
+      "expected_mode": "improve"
+    },
+    {
+      "id": "benchmark-skill",
+      "input": "skill の pass rate を測りたい / benchmark を取りたい",
+      "expected_skill": "skill-creator",
+      "expected_mode": "benchmark"
+    },
+    {
+      "id": "description-optimization",
+      "input": "skill の description が trigger されにくいので最適化したい",
+      "expected_skill": "skill-creator",
+      "expected_mode": "optimize-description"
+    },
+    {
+      "id": "negative-not-skill-creator",
+      "input": "skill を cocosil-standard-skills に publish したい",
+      "expected_skill": "skill-shipper",
+      "_note": "publish/install/update は skill-shipper の責務"
+    }
+  ]
+}

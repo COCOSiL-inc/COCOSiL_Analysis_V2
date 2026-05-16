@@ -1,0 +1,27 @@
+central_repo:
+  name: cocosil-standard-skills
+  url: https://github.com/COCOSiL-inc/COCOSiL_standard_skills.git
+  local_path: <absolute path to your local checkout of cocosil-standard-skills>
+
+organization: COCOSiL-inc
+codeowner: "@<your-github-handle>"
+
+defaults:
+  license: MIT
+  benchmark_command_prefix: /benchmark-skill
+
+installed_skills:
+  requirements-grill:
+    version: 0.1.0
+    source_sha: ecfcb1d
+    config:
+      spec_path: docs/requirements/
+      product_doc_path: docs/products/
+      grill_session_path: docs/sandbox/<member>/grill-sessions/
+      members_doc: AGENTS.md
+  skill-creator:
+    version: 0.1.0
+    source_sha: 285c44e
+  skill-shipper:
+    version: 0.1.0
+    source_sha: 285c44e
