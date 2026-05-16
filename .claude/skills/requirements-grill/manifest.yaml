@@ -1,0 +1,97 @@
+name: requirements-grill
+version: 0.1.0
+description: |
+  Grill-me 方式でプロダクト要件を 1 問ずつ執拗に引き出し、
+  Vision / Outcome / Capability / Feature / Eval / EngSpec の 6 層に段階的に
+  落とし込み、KB の 25_requirements/<product>/ 配下に書き出す。
+  セッションファイルで状態を永続化し、新規チャットでも resume できる。
+
+authors:
+  - MasakiEndo44
+
+license: MIT
+
+compatibility:
+  claude_code: ">=1.0"
+  claude_models:
+    - opus-4.7
+    - sonnet-4.6
+    - haiku-4.5
+
+dependencies:
+  skills: []
+  external:
+    - git: ">=2.0"
+
+config_required:
+  - key: spec_path
+    description: "要件書き出し先 (例: docs/requirements/)"
+    default: "docs/requirements/"
+    type: path
+  - key: product_doc_path
+    description: "既存プロダクトドキュメント参照先 (例: docs/products/)"
+    default: "docs/products/"
+    type: path
+  - key: grill_session_path
+    description: "セッションファイル保存先テンプレ"
+    default: "docs/sandbox/<member>/grill-sessions/"
+    type: path
+  - key: members_doc
+    description: "メンバー一覧・プロダクト一覧を引くドキュメント"
+    default: "AGENTS.md"
+    type: path
+
+config_optional:
+  - key: web_search_enabled
+    description: "WEB_ESCALATION を有効化（false で全 Web ゲート抑制）"
+    default: true
+
+files:
+  required:
+    - SKILL.md
+    - manifest.yaml
+  optional:
+    - SESSION_TEMPLATE.md
+    - EARS_GUIDE.md
+    - PROMPT_RECIPES.md
+    - WEB_ESCALATION.md
+    - QUESTIONS_V.md
+    - QUESTIONS_O.md
+    - QUESTIONS_C.md
+    - QUESTIONS_F.md
+    - QUESTIONS_E.md
+    - QUESTIONS_S.md
+    - EXAMPLES/
+    - REGRESSION/
+
+test_eval:
+  pass_rate_min: 0.7
+  benchmark_command: /benchmark-skill requirements-grill
+
+tags:
+  - requirements
+  - grill
+  - vision
+  - capability
+  - feature
+  - eval
+  - eng-spec
+  - ai-product
+  - kb-structure
+
+repository:
+  url: https://github.com/MasakiEndo44/cocosil-standard-skills
+  path: skills/requirements-grill/
+  commit: <filled-at-publish>
+
+published_at: 2026-05-16T00:00:00Z
+last_updated: 2026-05-16T00:00:00Z
+
+abstraction:
+  fully_abstracted: true
+  warnings:
+    - "Assumes a knowledge base structure with 25_requirements/<product>/, 20_products/<product>/, and 80_sandbox/<member>/ directories. Override via config_required if your KB layout differs."
+  redacted_count: 0
+
+deprecation:
+  status: active

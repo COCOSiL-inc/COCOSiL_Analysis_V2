@@ -1,0 +1,42 @@
+{
+  "_comment": "skill-shipper benchmark scenarios. Coverage expansion tracked separately.",
+  "_status": "placeholder-v0.1.0",
+  "scenarios": [
+    {
+      "id": "publish-trigger-detection",
+      "input": "skill を cocosil-standard-skills に publish したい",
+      "expected_skill": "skill-shipper",
+      "expected_mode": "publish"
+    },
+    {
+      "id": "install-trigger-detection",
+      "input": "中央 repo から <skill-name> を install したい",
+      "expected_skill": "skill-shipper",
+      "expected_mode": "install"
+    },
+    {
+      "id": "update-trigger-detection",
+      "input": "skill のアップデートを propagation したい",
+      "expected_skill": "skill-shipper",
+      "expected_mode": "update"
+    },
+    {
+      "id": "list-trigger-detection",
+      "input": "中央 repo に何が入ってる？ list 表示して",
+      "expected_skill": "skill-shipper",
+      "expected_mode": "list"
+    },
+    {
+      "id": "init-trigger-detection",
+      "input": "cocosil-standard-skills を初期化したい",
+      "expected_skill": "skill-shipper",
+      "expected_mode": "init"
+    },
+    {
+      "id": "negative-not-skill-shipper",
+      "input": "スキルを新規作成したい",
+      "expected_skill": "skill-creator",
+      "_note": "skill-shipper は publish/install であり create ではない"
+    }
+  ]
+}

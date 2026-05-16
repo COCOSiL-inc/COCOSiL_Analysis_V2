@@ -1,0 +1,82 @@
+name: skill-creator
+version: 0.1.0
+description: |
+  Fork of Anthropic's official skill-creator (claude-plugins-official).
+  Create new skills, modify and improve existing skills, and measure skill performance.
+  Use when users want to create a skill from scratch, edit/optimize an existing skill,
+  run evals to test a skill, benchmark skill performance with variance analysis, or
+  optimize a skill's description for better triggering accuracy.
+
+authors:
+  - Anthropic            # upstream author (claude-plugins-official)
+  - MasakiEndo44         # fork maintainer for cocosil-standard-skills hub
+
+license: Apache-2.0      # inherited from upstream; see LICENSE.txt and NOTICE.md
+
+compatibility:
+  claude_code: ">=1.0"
+  claude_models:
+    - opus-4.7
+    - sonnet-4.6
+    - haiku-4.5
+
+dependencies:
+  skills: []
+  external:
+    - python: ">=3.10"
+    - pyyaml: ">=6.0"
+
+config_required: []
+
+config_optional:
+  - default_iteration_budget:
+      description: Default max iterations for description optimization loop
+      default: 5
+      type: integer
+
+files:
+  required:
+    - SKILL.md
+    - manifest.yaml
+    - LICENSE.txt
+    - NOTICE.md
+  optional:
+    - agents/
+    - assets/
+    - eval-viewer/
+    - references/
+    - scripts/
+    - evals/evals.json
+
+test_eval:
+  pass_rate_min: 0.7
+  benchmark_command: /benchmark-skill skill-creator
+
+tags:
+  - meta
+  - skill-authoring
+  - benchmarking
+  - eval
+
+upstream:
+  source: https://github.com/anthropics/claude-plugins
+  path: plugins/skill-creator/skills/skill-creator/
+  forked_at: 2026-05-14
+  forked_from_version: unknown            # upstream plugin.json carries no version
+  modifications: none-at-fork-time        # only manifest.yaml / NOTICE.md / evals/ added alongside
+
+repository:
+  url: https://github.com/MasakiEndo44/cocosil-standard-skills
+  path: skills/skill-creator/
+  commit: <filled-at-publish>
+
+published_at: 2026-05-14T00:00:00Z
+last_updated: 2026-05-14T00:00:00Z
+
+abstraction:
+  fully_abstracted: true
+  warnings: []
+  redacted_count: 0
+
+deprecation:
+  status: active

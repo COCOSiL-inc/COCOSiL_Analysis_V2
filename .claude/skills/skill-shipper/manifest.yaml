@@ -1,0 +1,87 @@
+name: skill-shipper
+version: 0.1.0
+description: |
+  Meta-skill for publishing project-local Claude Code skills to a central hub,
+  installing shared skills into consumer projects, and propagating updates.
+  5 modes: publish / install / update / list / init.
+
+authors:
+  - MasakiEndo44
+
+license: MIT
+
+compatibility:
+  claude_code: ">=1.0"
+  claude_models:
+    - opus-4.7
+    - sonnet-4.6
+    - haiku-4.5
+
+dependencies:
+  skills: []
+  external:
+    - gh: ">=2.0"
+    - python: ">=3.12"
+    - pyyaml: ">=6.0"
+
+config_required:
+  - key: central_repo_name
+    description: Central skills hub repo name
+    default: cocosil-standard-skills
+    type: string
+  - key: central_repo_url
+    description: Git URL of the central hub
+    type: string
+  - key: central_repo_local_path
+    description: Local checkout path of the central hub
+    type: path
+  - key: organization
+    description: Org slug used in consumer-side path generalization
+    type: string
+  - key: codeowner
+    description: GitHub handle inserted into CODEOWNERS during init mode
+    type: string
+
+config_optional:
+  - default_license:
+      description: License written to generated manifest.yaml
+      default: MIT
+  - benchmark_command_prefix:
+      description: Prefix for post-publish eval commands
+      default: /benchmark-skill
+
+files:
+  required:
+    - SKILL.md
+    - manifest.yaml
+  optional:
+    - SESSION_TEMPLATE.md
+    - references/
+    - templates/
+    - evals/evals.json
+
+test_eval:
+  pass_rate_min: 0.7
+  benchmark_command: /benchmark-skill skill-shipper
+
+tags:
+  - meta
+  - publishing
+  - multi-repo
+  - governance
+
+repository:
+  url: https://github.com/MasakiEndo44/cocosil-standard-skills
+  path: skills/skill-shipper/
+  commit: <filled-at-publish>
+
+published_at: 2026-05-13T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
+
+abstraction:
+  fully_abstracted: true
+  warnings: []
+  redacted_count: 0
+
+deprecation:
+  status: active
