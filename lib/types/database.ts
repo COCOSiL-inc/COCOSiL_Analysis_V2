@@ -17,7 +17,7 @@ export type Database = {
       diagnoses: {
         Row: {
           id: string
-          user_id: string
+          user_id: string | null
           zodiac_sign: string | null
           animal_type: string | null
           animal_character: string | null
@@ -26,7 +26,7 @@ export type Database = {
         }
         Insert: {
           id?: string
-          user_id: string
+          user_id?: string | null
           zodiac_sign?: string | null
           animal_type?: string | null
           animal_character?: string | null
@@ -35,7 +35,7 @@ export type Database = {
         }
         Update: {
           id?: string
-          user_id?: string
+          user_id?: string | null
           zodiac_sign?: string | null
           animal_type?: string | null
           animal_character?: string | null

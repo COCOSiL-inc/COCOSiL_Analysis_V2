@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { auth } from '@clerk/nextjs/server';
 import { z } from 'zod/v4';
 import { calculateZodiacSign } from '@/lib/diagnostics/zodiac';
 import { calculate60Animal } from '@/lib/diagnostics/animal';
 import { calculateSixStar } from '@/lib/diagnostics/six-star';
-import { createSupabaseServerClient } from '@/utils/supabase/server';
+import { getSupabaseClient } from '@/utils/supabase/client';
 
 const bodySchema = z.object({
   birth_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, '日付は YYYY-MM-DD 形式で指定してください'),
@@ -22,14 +21,6 @@ export interface AutoCalcResponse {
 }
 
 export async function POST(request: Request) {
-  const { userId, getToken } = await auth();
-  if (!userId) {
-    return NextResponse.json<AutoCalcResponse>(
-      { success: false, error: '認証が必要です' },
-      { status: 401 },
-    );
-  }
-
   let body: unknown;
   try {
     body = await request.json();
@@ -53,7 +44,6 @@ export async function POST(request: Request) {
   const month = parseInt(monthStr, 10);
   const day = parseInt(dayStr, 10);
 
-  // Validate date range for destiny number DB (1930–2030)
   if (year < 1930 || year > 2030) {
     return NextResponse.json<AutoCalcResponse>(
       { success: false, error: '対応年度は 1930〜2030 年です' },
@@ -61,7 +51,6 @@ export async function POST(request: Request) {
     );
   }
 
-  // Validate calendar date
   const testDate = new Date(year, month - 1, day);
   if (
     testDate.getFullYear() !== year ||
@@ -94,24 +83,16 @@ export async function POST(request: Request) {
   }
 
   try {
-    const token = await getToken({ template: 'supabase' });
-    const supabase = createSupabaseServerClient(token);
-
-    const { error: dbError } = await supabase.from('diagnoses').upsert(
-      {
-        user_id: userId,
-        zodiac_sign: zodiacSign,
-        animal_type: animalType,
-        animal_character: animalCharacter,
-        six_star: sixStar,
-        calculated_at: new Date().toISOString(),
-      },
-      { onConflict: 'user_id' },
-    );
-
+    const supabase = getSupabaseClient();
+    const { error: dbError } = await supabase.from('diagnoses').insert({
+      user_id: null,
+      zodiac_sign: zodiacSign,
+      animal_type: animalType,
+      animal_character: animalCharacter,
+      six_star: sixStar,
+    });
     if (dbError) {
-      console.error('Supabase upsert error:', dbError);
-      // Return the calculated result even if DB save fails
+      console.error('Supabase insert error:', dbError);
     }
   } catch (err) {
     console.error('Supabase connection error:', err);
