@@ -333,7 +333,7 @@ interface DiagnosisAllResult {
 
 2. **Clerk（認証）**:
    - **用途**: ユーザー識別（`user_id`の取得）
-   - **連携方式**: `auth()` Server Actions経由でJWT取得
+   - **連携方式**: API Route ハンドラ内で `auth()` を直接呼び出してJWT取得（`"use server"` Server Action は使用しない）
    - **注意**: `request.headers` からの直接JWT読み取り禁止（AGENTS.md Gate 1）
 
 3. **PostHog（テレメトリ）**:
