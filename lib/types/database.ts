@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      diagnoses: {
+        Row: {
+          id: string
+          user_id: string | null
+          zodiac_sign: string | null
+          animal_type: string | null
+          animal_character: string | null
+          six_star: string | null
+          calculated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          zodiac_sign?: string | null
+          animal_type?: string | null
+          animal_character?: string | null
+          six_star?: string | null
+          calculated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          zodiac_sign?: string | null
+          animal_type?: string | null
+          animal_character?: string | null
+          six_star?: string | null
+          calculated_at?: string
+        }
+        Relationships: []
+      }
       mbti_results: {
         Row: {
           answers: Json | null
