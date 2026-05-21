@@ -22,7 +22,7 @@ related_impl_plan: ""
 
 ## 概要
 
-F4共感AIチャットのバックエンドAPI。Vercel AI SDK `streamText()` + Edge Runtime でストリーミング応答を実装。5フェーズ状態は `chat_sessions.phase` に永続化（クライアント側に持たせない）。4体系診断データ + 過去会話要約をシステムプロンプトに常時注入し、再訪時は履歴・アクション記録・腑落ちマーカーをコンテキスト取り込みする。
+F4共感AIチャットのバックエンドAPI。Vercel AI SDK `streamText()` + Edge Runtime でストリーミング応答を実装。5フェーズ状態は `chat_sessions.phase` に永続化（クライアント側に持たせない）。4体系診断データ + 過去会話要約をシステムプロンプトに常時注入し、再訪時は履歴・アクション記録・しっくりきたマーカーをコンテキスト取り込みする。
 
 ---
 
@@ -60,7 +60,7 @@ lib/supabase/
 1. POST `/api/chat` を Edge Runtime（`export const runtime = 'edge'`）で実装
 2. Clerk JWT 検証 → `supabase.auth.getUser()`
 3. `chat_sessions` を取得（既存セッション or 新規作成）→ `phase` 読み出し
-4. 4体系診断データ + 過去会話要約 + 腑落ちマーカー + アクション記録をシステムプロンプトに注入
+4. 4体系診断データ + 過去会話要約 + しっくりきたマーカー + アクション記録をシステムプロンプトに注入
 5. 無料プラン月5回上限の判定（`profiles.plan` + 当月メッセージ数）
 6. Vercel AI SDK `streamText()` でOpenAIにストリーミング要求
 7. レスポンス完了後、メッセージを `chat_messages` に保存し `chat_sessions.phase` を更新
@@ -79,7 +79,7 @@ lib/supabase/
 - [ ] Edge Runtime で動作
 - [ ] `chat_sessions.phase` がサーバー側で更新・永続化される
 - [ ] 4体系診断データ + 過去会話要約をシステムプロンプトに注入
-- [ ] 再訪時は履歴・アクション記録・腑落ちマーカーをコンテキスト取り込み
+- [ ] 再訪時は履歴・アクション記録・しっくりきたマーカーをコンテキスト取り込み
 - [ ] 無料プラン月5回上限のサーバー側レート制限
 - [ ] OpenAI障害時のフレンドリーエラー返却
 - [ ] 30分以内のセッション再開対応
