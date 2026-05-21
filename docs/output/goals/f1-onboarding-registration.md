@@ -37,9 +37,9 @@ related_tasks:
 **測定方法**:
 
 定量（PostHog ファネル）:
-- イベント: `lp_viewed` → `signup_completed` → `birth_date_submitted` → `welcome_chat_replied`（F1.3の1往復完了）→ `f2_entered`
+- イベント: `lp_viewed` → `signup_started` → `signup_completed` → `birth_date_submitted` → `welcome_chat_replied`（F1.3の1往復完了）→ `f2_entered`
 - 各ステップの転換率と所要時間（中央値・90パーセンタイル）を計測
-- 30秒以内完了率は `signup_completed` から `welcome_chat_replied` までの経過時間で算出
+- 30秒以内完了率は `signup_started`（LPサインアップCTAタップ）から `birth_date_submitted`（生年月日永続化完了）までの経過時間で算出（F1スコープに整合。詳細: `docs/output/F1/F1_onboarding_features.md` §4 計測仕様）
 
 定性（補完）:
 - F1.3 ウェルカム対話後の任意マイクロアンケート（1問: 「このプロダクトは自分のためのものだと感じた？ Yes / Not yet」）
@@ -91,4 +91,4 @@ related_tasks:
 ただし以下は実装着手前にえんまさの肌感と擦り合わせ推奨:
 - O-1 の閾値（完走率 40% / 30秒以内 80% / F2遷移 70%）
 - O-4 の最低ライン（完走率 25% / 30秒以内 50% / F2遷移 50%）
-- 「30秒以内」の計測起点（`lp_viewed` / `signup_completed` どちらから？）
+- 「30秒以内」の計測区間は `signup_started` → `birth_date_submitted` に確定済み（F1要件グリル C1 / 2026-05-21）
