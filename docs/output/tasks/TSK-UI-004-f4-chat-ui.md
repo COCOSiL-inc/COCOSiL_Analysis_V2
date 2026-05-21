@@ -22,7 +22,7 @@ related_impl_plan: ""
 
 ## 概要
 
-性格分析データに基づく「根拠のある共感」を提供する5フェーズ設計AIチャットのフロントエンドUI。UXシーケンス「共感→分析→行動」をチャット内で体現する。Vercel AI SDK の `useChat` を用いたストリーミングUI、フェーズインジケーター、腑落ちマーカー、Phase 5「記録する」ボタンを実装する。
+性格分析データに基づく「根拠のある共感」を提供する5フェーズ設計AIチャットのフロントエンドUI。UXシーケンス「共感→分析→行動」をチャット内で体現する。Vercel AI SDK の `useChat` を用いたストリーミングUI、フェーズインジケーター、しっくりきたマーカー、Phase 5「記録する」ボタンを実装する。
 
 ---
 
@@ -47,7 +47,7 @@ components/chat/
   ├── ChatThread.tsx                  # useChat ストリーミング表示
   ├── PhaseIndicator.tsx              # 5フェーズ進行表示
   ├── MessageBubble.tsx               # メッセージ表示（AI/user）
-  ├── KnowMarkerInChat.tsx            # Phase 4 腑落ちマーカー
+  ├── KnowMarkerInChat.tsx            # Phase 4 しっくりきたマーカー
   ├── ActionRecordButton.tsx          # Phase 5「記録する」→ F5 API
   ├── PaywallModal.tsx                # 月5回上限到達モーダル
   └── ErrorRetry.tsx                  # OpenAIエラー時のリトライUI
@@ -63,7 +63,7 @@ lib/chat/
 1. `useChat`（Vercel AI SDK）でストリーミング応答を表示する基本UI
 2. サーバーレスポンスから受け取る `phase` をフェーズインジケーターに反映
 3. メッセージバブル（AI/user）スタイル — Tailwind + shadcn/ui
-4. Phase 4 で腑落ちマーカーをメッセージ末尾に表示・タップ記録
+4. Phase 4 でしっくりきたマーカーをメッセージ末尾に表示・タップ記録
 5. Phase 5 で「記録する」ボタンを表示 → F5 アクション記録APIに POST
 6. OpenAIエラー時に言語設計準拠の文言＋リトライ導線
 7. チャット中断（タブ切替）→ 30分以内なら同セッションを再開（`[sessionId]` ルート）
@@ -79,7 +79,7 @@ lib/chat/
 - [ ] `pnpm build` 通過
 - [ ] Vercel AI SDK `useChat` でストリーミング応答が表示される
 - [ ] サーバーから返却された `phase` をUIで反映
-- [ ] Phase 4（洞察）で腑落ちマーカーがチャット内に表示・タップ記録可能
+- [ ] Phase 4（洞察）でしっくりきたマーカーがチャット内に表示・タップ記録可能
 - [ ] Phase 5（行動提案）の提案をワンタップで F5 アクション記録APIに POST
 - [ ] OpenAIエラー時に言語設計準拠の文言を表示・リトライ導線
 - [ ] チャット中断後30分以内なら同セッションを再開

@@ -5,7 +5,7 @@ doc_type: task-index
 product: cocosil
 layer: canonical
 status: active
-updated_at: 2026-05-07
+updated_at: 2026-05-21
 ---
 
 # COCOSiL V2 TASK-INDEX
@@ -49,6 +49,7 @@ TSK-[分類]-[番号3桁]
 |--------|---------|------|---------|-------|-------------|---------|
 | **TSK-UI-001** | F2 フロントUI改良＆UIコンポーネント定義 | まあみ | 🟡 実装中 | [#28](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/28) | [TSK-UI-001-f2-ui-component-design.md](output/tasks/TSK-UI-001-f2-ui-component-design.md) | [§4.2](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 | **TSK-DB-001** | DB構造整理（profiles/chat_sessions/weights） | ヒラメ | 🔴 レビュー中 | [#27](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/27) | [TSK-DB-001-db-schema-cleanup.md](output/tasks/TSK-DB-001-db-schema-cleanup.md) | [§4.1〜4.2](output/requirements/cocosil_v2_detailed_requirements_specification.md) + [impl-plan](output/roadmap/impl-plan-near-soft-feedback-loop.md) |
+| **TSK-API-007** | F2 六星占術 霊合星人ロジック実装 | ヒラメ | 🔵 設計中 | [#54](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/54) | [TSK-API-007-f2-six-star-reigosei.md](output/tasks/TSK-API-007-f2-six-star-reigosei.md) | [§4.2.1c](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
@@ -59,6 +60,8 @@ TSK-[分類]-[番号3桁]
 | **TSK-UI-003** | F3 統合レポートUI | まあみ | 🔵 設計中 | [#34](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/34) | [TSK-UI-003-f3-report-ui.md](output/tasks/TSK-UI-003-f3-report-ui.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 | **TSK-API-002** | F3 Vercel OGレポート生成API | ヒラメ | 🔵 設計中 | [#35](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/35) | [TSK-API-002-f3-report-api.md](output/tasks/TSK-API-002-f3-report-api.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 | **TSK-PROMPT-001** | F3 統合レポートプロンプト | えんまさ | 🔵 設計中 | [#36](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/36) | [TSK-PROMPT-001-f3-report-prompt.md](output/tasks/TSK-PROMPT-001-f3-report-prompt.md) | [§4.3](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-008** | F3 レポート付随API（しっくりきたマーカー・満足度アンケート） | ヒラメ | 🔵 設計中 | [#56](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/56) | [TSK-API-008-f3-report-records-api.md](output/tasks/TSK-API-008-f3-report-records-api.md) | [F3要件](output/F3/F3_integrated-report_features.md) §3-4 |
+| **TSK-API-009** | F3.5 レポート再生成API（蓄積データ反映・課金ゲート） | ヒラメ | 🔵 設計中 | [#57](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/57) | [TSK-API-009-f3-report-regenerate-api.md](output/tasks/TSK-API-009-f3-report-regenerate-api.md) | [F3要件](output/F3/F3_integrated-report_features.md) §5-6 |
 
 ---
 
