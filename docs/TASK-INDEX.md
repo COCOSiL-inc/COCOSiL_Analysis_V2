@@ -38,8 +38,8 @@ TSK-[分類]-[番号3桁]
 
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
-| **TSK-UI-002** | F1 ウェルカム対話UIコンポーネント | まあみ | 🔵 設計中 | [#32](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/32) | [TSK-UI-002-f1-welcome-ui.md](output/tasks/TSK-UI-002-f1-welcome-ui.md) | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| **TSK-API-001** | F1 オンボーディングAPI | ヒラメ | 🔵 設計中 | [#33](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/33) | [TSK-API-001-f1-onboarding-api.md](output/tasks/TSK-API-001-f1-onboarding-api.md) | [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-UI-002** | F1 ウェルカム対話UIコンポーネント | まあみ | 🔵 設計中 | [#32](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/32) | [TSK-UI-002-f1-welcome-ui.md](output/tasks/TSK-UI-002-f1-welcome-ui.md) | [F1要件書](output/F1/F1_onboarding_features.md) ／ [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
+| **TSK-API-001** | F1 オンボーディングAPI | ヒラメ | 🔵 設計中 | [#33](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/33) | [TSK-API-001-f1-onboarding-api.md](output/tasks/TSK-API-001-f1-onboarding-api.md) | [F1要件書](output/F1/F1_onboarding_features.md) ／ [§4.1](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---
 
