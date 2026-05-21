@@ -30,6 +30,7 @@ related_impl_plan: ""
 
 | 種別 | パス | 参照箇所 |
 |------|------|---------|
+| F3フィーチャー要件 | [F3_integrated-report_features.md](../F3/F3_integrated-report_features.md) | §1〜§5（F3.1〜F3.5 体験定義・受け入れ基準） |
 | 要件定義書 | [cocosil_v2_detailed_requirements_specification.md](../requirements/cocosil_v2_detailed_requirements_specification.md) | §4.3 |
 | 設計中枢 | [COCOSiL設計中枢.md](../../input/concepts/COCOSiL設計中枢.md) | UXシーケンス・三毒 |
 | 言語設計 | [language-design-v1.md](../../input/concepts/language-design-v1.md) | 全体 |
@@ -92,3 +93,4 @@ lib/report/
 | 日付 | 更新者 | 内容 |
 |------|--------|------|
 | 2026-05-07 | えんまさ | 初版作成（task-issue-generator スキルにより自動生成） |
+| 2026-05-21 | えんまさ | F3要件精緻化（F3_integrated-report_features.md）に伴い参照を追加（task-issue-generator メンテ） |
