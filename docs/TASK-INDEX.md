@@ -48,7 +48,7 @@ TSK-[分類]-[番号3桁]
 | TSK ID | タスク名 | 担当 | フェーズ | Issue | TSKファイル | 参照要件 |
 |--------|---------|------|---------|-------|-------------|---------|
 | **TSK-UI-001** | F2 フロントUI改良＆UIコンポーネント定義 | まあみ | 🟡 実装中 | [#28](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/28) | [TSK-UI-001-f2-ui-component-design.md](output/tasks/TSK-UI-001-f2-ui-component-design.md) | [§4.2](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
-| **TSK-DB-001** | DB構造整理（profiles/chat_sessions/weights） | ヒラメ | 🟡 実装中 | [#27](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/27) | [TSK-DB-001-db-schema-cleanup.md](output/tasks/TSK-DB-001-db-schema-cleanup.md) | [§4.1〜4.2](output/requirements/cocosil_v2_detailed_requirements_specification.md) + [impl-plan](output/roadmap/impl-plan-near-soft-feedback-loop.md) |
+| **TSK-DB-001** | DB構造整理（profiles/chat_sessions/weights） | ヒラメ | 🔴 レビュー中 | [#27](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/27) | [TSK-DB-001-db-schema-cleanup.md](output/tasks/TSK-DB-001-db-schema-cleanup.md) | [§4.1〜4.2](output/requirements/cocosil_v2_detailed_requirements_specification.md) + [impl-plan](output/roadmap/impl-plan-near-soft-feedback-loop.md) |
 | **TSK-API-007** | F2 六星占術 霊合星人ロジック実装 | ヒラメ | 🔵 設計中 | [#54](https://github.com/COCOSiL-inc/COCOSiL_Analysis_V2/issues/54) | [TSK-API-007-f2-six-star-reigosei.md](output/tasks/TSK-API-007-f2-six-star-reigosei.md) | [§4.2.1c](output/requirements/cocosil_v2_detailed_requirements_specification.md) |
 
 ---

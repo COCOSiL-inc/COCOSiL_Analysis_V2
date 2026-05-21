@@ -2,7 +2,7 @@
 doc_id: task.db.db-schema-cleanup
 title: TSK-DB-001 DB構造整理 — profiles / chat_sessions / user_personality_weights スキーマ最終化
 doc_type: task
-status: in-progress
+status: review
 author: ヒラメ
 created_at: 2026-05-07
 github_issue: "#27"
@@ -97,3 +97,4 @@ lib/
 | 日付 | 更新者 | 内容 |
 |------|--------|------|
 | 2026-05-07 | えんまさ（AI） | 初版作成。実装計画から内容を集約 |
+| 2026-05-17 | ヒラメ（AI） | F2バックエンド実装完了。lib/diagnostics/（星座・動物・六星占術）、lib/data/（animal-characters / destiny-number-database）、supabase/migrations/20260517000001_diagnoses.sql、app/api/diagnosis/auto-calc・route.ts を作成。Vitestユニットテスト74件全通過。認証は後日対応のため匿名MVPパターンで実装。PRレビュー待ち。 |
